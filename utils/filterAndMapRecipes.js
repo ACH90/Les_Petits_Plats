@@ -1,7 +1,7 @@
 export const filterAndMapRecipes = (
   recipes,
   inputValue = "",
-  selectedIngredients = [],
+  selectedIngredients = [""],
   selectedAppliances = [],
   selectedUstensils = []
 ) => {
