@@ -89,9 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
   displayOptions(applianceOptionsContainer, appliances);
   displayOptions(ustensilOptionsContainer, ustensils);
 
-  //--------------------------------------------------------------------------------------------
+  //------------------------------ECOUTEURS D'EVENNEMENTS--------------------------------------------------------------
 
-  //Ecouteur d'evenements sur la barre de recherche principale
+  //la barre de recherche principale
 
   mainSearchInput.addEventListener("input", (e) => {
     mainQuerryValue = e.target.value;
@@ -128,7 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
     displayOptions(ustensilOptionsContainer, ustensils);
   });
 
-  //Ecouteur d'evenements sur la barre de recherche des ingredients
+  //Les Catégories
+
+  //la barre de recherche des ingredients
   ingredientSearchInput.addEventListener("input", (e) => {
     // Mettre à jour la valeur de la recherche
     ingredientQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
@@ -148,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Ingrédients filtrés:", filteredIngredients);
   });
 
-  //Ecouteur d'evenements sur la croix de la barre de recherche des ingredients
+  //la croix de la barre de recherche des ingredients
 
   ingredientClearButton.addEventListener("click", () => {
     handleClear(ingredientSearchInput); // Efface l'input visuellement
@@ -160,65 +162,50 @@ document.addEventListener("DOMContentLoaded", () => {
     displayOptions(ingredientOptionsContainer, ingredients);
   });
 
-  //Ecouteur d'evenements sur la barre de recherche des appliances
+  //la barre de recherche des appliances
   applianceSearchInput.addEventListener("input", (e) => {
-    // Mettre à jour la valeur de la recherche
-    applianceQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
+    applianceQuerryValue = e.target.value.toLowerCase();
     applianceSearchValue = handleChange(e, applianceSearchValue);
 
-    // Afficher/masquer le bouton 'X' selon la présence de texte dans le champ
     showXButton(applianceClearButton, applianceQuerryValue);
 
-    // Filtrer les ingrédients selon la valeur de la recherche
     const filteredAppliances = appliances.filter((appliance) =>
       appliance.toLowerCase().includes(applianceQuerryValue)
     );
-
-    // Afficher les options filtrées (mettre à jour l'interface utilisateur)
     displayOptions(applianceOptionsContainer, filteredAppliances);
 
     console.log("Appareils filtrés:", filteredAppliances);
   });
 
-  //Ecouteur d'evenements sur la croix de la barre de recherche des appliances
+  //la croix de la barre de recherche des appliances
 
   applianceClearButton.addEventListener("click", () => {
-    handleClear(applianceSearchInput); // Efface l'input visuellement
-    applianceQuerryValue = ""; // Réinitialise la variable manuellement
+    handleClear(applianceSearchInput);
+    applianceQuerryValue = "";
 
-    // Masquer le bouton "X" après l'effacement
     showXButton(applianceClearButton, applianceQuerryValue);
-
     displayOptions(applianceOptionsContainer, appliances);
   });
 
-  //Ecouteur d'evenements sur la barre de recherche des ustensils
+  //la barre de recherche des ustensils
   ustensilSearchInput.addEventListener("input", (e) => {
-    // Mettre à jour la valeur de la recherche
-    ustensilQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
+    ustensilQuerryValue = e.target.value.toLowerCase();
     ustensilSearchValue = handleChange(e, ustensilSearchValue);
 
-    // Afficher/masquer le bouton 'X' selon la présence de texte dans le champ
     showXButton(ustensilClearButton, ustensilQuerryValue);
-
-    // Filtrer les ingrédients selon la valeur de la recherche
     const filteredUstensils = ustensils.filter((ustensil) =>
       ustensil.toLowerCase().includes(ustensilQuerryValue)
     );
-
-    // Afficher les options filtrées (mettre à jour l'interface utilisateur)
     displayOptions(ustensilOptionsContainer, filteredUstensils);
 
-    console.log("Ingrédients filtrés:", filteredUstensils);
+    console.log("Ustensils filtrés:", filteredUstensils);
   });
 
-  //Ecouteur d'evenements sur la croix de la barre de recherche des ingredients
+  //la croix de la barre de recherche des ustensils
 
   ustensilClearButton.addEventListener("click", () => {
-    handleClear(ustensilSearchInput); // Efface l'input visuellement
-    ingredientQuerryValue = ""; // Réinitialise la variable manuellement
-
-    // Masquer le bouton "X" après l'effacement
+    handleClear(ustensilSearchInput);
+    ingredientQuerryValue = "";
     showXButton(ustensilClearButton, ustensilQuerryValue);
 
     displayOptions(ustensilOptionsContainer, ustensils);
