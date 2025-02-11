@@ -49,9 +49,11 @@ const ingredientClearButton = document.getElementById(
 
 let applianceQuerryValue = "";
 let applianceSearchValue = "";
+const applianceClearButton = document.getElementById("appliance-clear-button");
 
 let ustensilQuerryValue = "";
 let ustensilSearchValue = "";
+const ustensilClearButton = document.getElementById("ustensil-clear-button");
 
 let filteredRecipes = recipes;
 const recipeFactory = new RecipeCardFactory();
@@ -86,23 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
   displayOptions(ingredientOptionsContainer, ingredients);
   displayOptions(applianceOptionsContainer, appliances);
   displayOptions(ustensilOptionsContainer, ustensils);
-
-  //   displayOptions(
-  //     ingredientOptionsContainer,
-  //     ingredients,
-  //     selectedIngredients,
-  //     applianceOptionsContainer,
-  //     appliances,
-  //     selectedAppliances,
-  //     ustensilOptionsContainer,
-  //     ustensils,
-  //     selectedUstensils,
-  //     filteredRecipes,
-  //     mainSearchValue,
-  //     filterAndMapRecipes,
-  //     updateOptions,
-  //     renderRecipes
-  //   );
 
   //--------------------------------------------------------------------------------------------
 
@@ -145,19 +130,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Ecouteur d'evenements sur la barre de recherche des ingredients
   ingredientSearchInput.addEventListener("input", (e) => {
-    ingredientQuerryValue = [""];
-    ingredientQuerryValue = e.target.value;
+    // Mettre à jour la valeur de la recherche
+    ingredientQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
     ingredientSearchValue = handleChange(e, ingredientSearchValue);
+
+    // Afficher/masquer le bouton 'X' selon la présence de texte dans le champ
     showXButton(ingredientClearButton, ingredientQuerryValue);
-    let filteredIngredientOptions = filterAndMapRecipes(
-      recipes,
-      ingredientSearchValue
+
+    // Filtrer les ingrédients selon la valeur de la recherche
+    const filteredIngredients = ingredients.filter((ingredient) =>
+      ingredient.toLowerCase().includes(ingredientQuerryValue)
     );
-    //   updateOptions();
-    console.log(
-      "Voici filteredIngredientOptions dans ecouteur d'event",
-      filteredIngredientOptions
-    );
+
+    // Afficher les options filtrées (mettre à jour l'interface utilisateur)
+    displayOptions(ingredientOptionsContainer, filteredIngredients);
+
+    console.log("Ingrédients filtrés:", filteredIngredients);
   });
 
   //Ecouteur d'evenements sur la croix de la barre de recherche des ingredients
@@ -169,7 +157,70 @@ document.addEventListener("DOMContentLoaded", () => {
     // Masquer le bouton "X" après l'effacement
     showXButton(ingredientClearButton, ingredientQuerryValue);
 
-    // Réafficher toutes les recettes après la réinitialisation
-    //   getAllIngredients(filteredRecipes);
+    displayOptions(ingredientOptionsContainer, ingredients);
+  });
+
+  //Ecouteur d'evenements sur la barre de recherche des appliances
+  applianceSearchInput.addEventListener("input", (e) => {
+    // Mettre à jour la valeur de la recherche
+    applianceQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
+    applianceSearchValue = handleChange(e, applianceSearchValue);
+
+    // Afficher/masquer le bouton 'X' selon la présence de texte dans le champ
+    showXButton(applianceClearButton, applianceQuerryValue);
+
+    // Filtrer les ingrédients selon la valeur de la recherche
+    const filteredAppliances = appliances.filter((appliance) =>
+      appliance.toLowerCase().includes(applianceQuerryValue)
+    );
+
+    // Afficher les options filtrées (mettre à jour l'interface utilisateur)
+    displayOptions(applianceOptionsContainer, filteredAppliances);
+
+    console.log("Appareils filtrés:", filteredAppliances);
+  });
+
+  //Ecouteur d'evenements sur la croix de la barre de recherche des appliances
+
+  applianceClearButton.addEventListener("click", () => {
+    handleClear(applianceSearchInput); // Efface l'input visuellement
+    applianceQuerryValue = ""; // Réinitialise la variable manuellement
+
+    // Masquer le bouton "X" après l'effacement
+    showXButton(applianceClearButton, applianceQuerryValue);
+
+    displayOptions(applianceOptionsContainer, appliances);
+  });
+
+  //Ecouteur d'evenements sur la barre de recherche des ustensils
+  ustensilSearchInput.addEventListener("input", (e) => {
+    // Mettre à jour la valeur de la recherche
+    ustensilQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
+    ustensilSearchValue = handleChange(e, ustensilSearchValue);
+
+    // Afficher/masquer le bouton 'X' selon la présence de texte dans le champ
+    showXButton(ustensilClearButton, ustensilQuerryValue);
+
+    // Filtrer les ingrédients selon la valeur de la recherche
+    const filteredUstensils = ustensils.filter((ustensil) =>
+      ustensil.toLowerCase().includes(ustensilQuerryValue)
+    );
+
+    // Afficher les options filtrées (mettre à jour l'interface utilisateur)
+    displayOptions(ustensilOptionsContainer, filteredUstensils);
+
+    console.log("Ingrédients filtrés:", filteredUstensils);
+  });
+
+  //Ecouteur d'evenements sur la croix de la barre de recherche des ingredients
+
+  ustensilClearButton.addEventListener("click", () => {
+    handleClear(ustensilSearchInput); // Efface l'input visuellement
+    ingredientQuerryValue = ""; // Réinitialise la variable manuellement
+
+    // Masquer le bouton "X" après l'effacement
+    showXButton(ustensilClearButton, ustensilQuerryValue);
+
+    displayOptions(ustensilOptionsContainer, ustensils);
   });
 });
