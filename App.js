@@ -10,7 +10,7 @@ import {
   //   getAllOptions,
   getOptionValues,
   updateOptions,
-  //   displayOptions,
+  displayOptions,
 } from "./utils/filter_Utils.js";
 import { addTag, removeTag } from "./utils/tag_Utils.js";
 
@@ -83,6 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
+  displayOptions(ingredientOptionsContainer, ingredients);
+  displayOptions(applianceOptionsContainer, appliances);
+  displayOptions(ustensilOptionsContainer, ustensils);
+
   //   displayOptions(
   //     ingredientOptionsContainer,
   //     ingredients,
@@ -119,16 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Voici mainSearchValue dans App handleChange", mainSearchValue);
     console.log("Voici filteredRecipes dans ecouteur d'event", filteredRecipes);
     updateOptions(ingredients, appliances, ustensils, filteredRecipes);
-    // displayOptions(
-    //   ingredientOptionsContainer,
-    //   ingredients,
-    //   applianceOptionsContainer,
-    //   appliances,
-    //   ustensilOptionsContainer,
-    //   ustensils,
-    //   filteredRecipes,
-    //   filterAndMapRecipes
-    // );
+    displayOptions(ingredientOptionsContainer, ingredients);
+    displayOptions(applianceOptionsContainer, appliances);
+    displayOptions(ustensilOptionsContainer, ustensils);
   });
 
   mainClearButton.addEventListener("click", () => {
@@ -140,6 +137,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Réafficher toutes les recettes après la réinitialisation
     renderRecipes(recipes);
+    updateOptions(ingredients, appliances, ustensils, recipes);
+    displayOptions(ingredientOptionsContainer, ingredients);
+    displayOptions(applianceOptionsContainer, appliances);
+    displayOptions(ustensilOptionsContainer, ustensils);
   });
 
   //Ecouteur d'evenements sur la barre de recherche des ingredients

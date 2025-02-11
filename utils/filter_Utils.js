@@ -241,3 +241,25 @@ export const updateOptions = (
 //   selectedUstensils = [];
 //   renderRecipes(recipes);
 // };
+
+export const displayOptions = (optionsContainer, options) => {
+  // Afficher ingredientOptions
+  optionsContainer.innerText = "";
+  options.forEach((option) => {
+    const optionElement = document.createElement("li");
+    optionElement.classList.add("dropdown-item");
+    optionElement.textContent = option;
+    optionsContainer.appendChild(optionElement);
+  });
+};
+
+// export const displayOptions = () => {
+//     // Afficher ingredientOptions
+//     ingredientOptionsContainer.innerText = "";
+//     ingredients.forEach((option) => {
+//       const optionElement = document.createElement("li");
+//       optionElement.classList.add("dropdown-item");
+//       optionElement.textContent = option;
+//       ingredientOptionsContainer.appendChild(optionElement);
+//     });
+//   };
