@@ -164,34 +164,40 @@ const selectOptions = (optionElement) => {
 };
 
 const displayOptions = (optionsContainer, options, category) => {
-  optionsListes = category;
   optionsContainer.innerText = ""; // Effacer le contenu du conteneur
   console.log("category dans displayOptions:", category);
+
   options.forEach((option) => {
-    // Ajouter les nouvelles options
-    const optionElement = document.createElement("li"); // Créer un nouvel element li
-    optionElement.classList.add("dropdown-item"); // Ajouter la classe dropdown-item
-    optionElement.textContent = option; // Ajouter le texte de l'option
-    optionsContainer.appendChild(optionElement); // Ajouter l'element li au conteneur
-    // Ajouter la catégorie dynamique
+    const optionElement = document.createElement("li");
+    optionElement.classList.add("dropdown-item");
+    optionElement.textContent = option;
     optionElement.setAttribute("data-category", category);
+    optionsContainer.appendChild(optionElement);
+  });
 
-    //Modifier ICI!!!
+  // Un seul écouteur d'événements pour tout le conteneur
+  optionsContainer.addEventListener("click", (event) => {
+    const clickedOption = event.target;
+    if (clickedOption.classList.contains("dropdown-item")) {
+      selectOptions(clickedOption);
 
-    // optionElement.addEventListener("click", () => {
-    //   selectOptions(option, optionsList);
-    //   // Mettre à jour l'affichage des recettes avec les nouveaux filtres
-    //   filteredRecipes = filterAndMapRecipes(
-    //     filteredRecipes,
-    //     mainSearchValue,
-    //     selectedIngredients,
-    //     selectedAppliances,
-    //     selectedUstensils
-    //   );
-    //   console.log("Voici filteredRecipes dans display", filteredRecipes);
-    //   renderRecipes(filteredRecipes);
-    //   updateOptions(ingredients, appliances, ustensils, filteredRecipes);
-    // });
+      // Mettre à jour les recettes avec les nouveaux filtres
+      filteredRecipes = filterAndMapRecipes(
+        filteredRecipes,
+        mainSearchValue,
+        selectedIngredients,
+        selectedAppliances,
+        selectedUstensils
+      );
+      console.log("filteredRecipes après le clic :", filteredRecipes);
+      renderRecipes(filteredRecipes);
+      updateOptions(ingredients, appliances, ustensils, filteredRecipes);
+
+      // Appeler displayOptions après avoir mis à jour les filtres
+      displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
+      displayOptions(applianceOptionsContainer, appliances, "appliances");
+      displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
+    }
   });
 };
 
@@ -222,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "ustensils" // La catégorie de filtre : ici 'ustensils'
   );
 
-  const optionElements = document.querySelectorAll(".dropdown-item");
+  let optionElements = document.querySelectorAll(".dropdown-item");
 
   //------------------------------ECOUTEURS D'EVENNEMENTS--------------------------------------------------------------
 
@@ -356,40 +362,42 @@ document.addEventListener("DOMContentLoaded", () => {
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
   });
 
-  optionElements.forEach((optionElement) => {
-    optionElement.addEventListener("click", () => {
-      const option = optionElement.textContent.toLowerCase();
-      // const optionList = optionElement.getAttribute();
-      selectOptions(optionElement);
-      // Mettre à jour l'affichage des recettes avec les nouveaux filtres
-      filteredRecipes = filterAndMapRecipes(
-        filteredRecipes,
-        mainSearchValue,
-        selectedIngredients,
-        selectedAppliances,
-        selectedUstensils
-      );
-      console.log("Voici filteredRecipes dans display", filteredRecipes);
-      renderRecipes(filteredRecipes);
-      updateOptions(ingredients, appliances, ustensils, filteredRecipes);
+  // optionElements.forEach((optionElement) => {
+  //   optionElement.addEventListener("click", () => {
+  //     const option = optionElement.textContent.toLowerCase();
+  //     console.log("Voici option", option);
+  //     // const optionList = optionElement.getAttribute();
+  //     selectOptions(optionElement);
+  //     // Mettre à jour l'affichage des recettes avec les nouveaux filtres
+  //     filteredRecipes = filterAndMapRecipes(
+  //       filteredRecipes,
+  //       mainSearchValue,
+  //       selectedIngredients,
+  //       selectedAppliances,
+  //       selectedUstensils
+  //     );
+  //     console.log("Voici filteredRecipes dans display", filteredRecipes);
+  //     renderRecipes(filteredRecipes);
+  //     updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
-      displayOptions(
-        ingredientOptionsContainer, // Conteneur pour les options des ingrédients
-        ingredients, // Liste des ingrédients
-        "ingredients" // La catégorie de filtre : ici 'ingredients'
-      );
+  //     displayOptions(
+  //       ingredientOptionsContainer, // Conteneur pour les options des ingrédients
+  //       ingredients, // Liste des ingrédients
+  //       "ingredients" // La catégorie de filtre : ici 'ingredients'
+  //     );
 
-      displayOptions(
-        applianceOptionsContainer, // Conteneur pour les options des appareils
-        appliances, // Liste des appareils
-        "appliances" // La catégorie de filtre : ici 'appliances'
-      );
+  //     displayOptions(
+  //       applianceOptionsContainer, // Conteneur pour les options des appareils
+  //       appliances, // Liste des appareils
+  //       "appliances" // La catégorie de filtre : ici 'appliances'
+  //     );
 
-      displayOptions(
-        ustensilOptionsContainer, // Conteneur pour les options des ustensiles
-        ustensils, // Liste des ustensiles
-        "ustensils" // La catégorie de filtre : ici 'ustensils'
-      );
-    });
-  });
+  //     displayOptions(
+  //       ustensilOptionsContainer, // Conteneur pour les options des ustensiles
+  //       ustensils, // Liste des ustensiles
+  //       "ustensils" // La catégorie de filtre : ici 'ustensils'
+  //     );
+  //     handleOptionClick(optionElements);
+  //   });
+  // });
 });
