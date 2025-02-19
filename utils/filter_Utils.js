@@ -37,26 +37,29 @@
 //   );
 
 export const selectOptions = (
-  optionElement,
+  category,
+  option,
   selectedIngredients,
   selectedAppliances,
   selectedUstensils
 ) => {
-  if (!optionElement) {
-    console.error("Erreur : optionElement est undefined !");
+  if (!category) {
+    console.error("❌ Erreur : optionElement est undefined !");
     return;
   }
 
-  console.log("optionElement", optionElement);
+  //   console.log("🟡 optionElement.dataset:", optionElement.dataset);
 
-  const category = optionElement.dataset.category;
-  const option = optionElement.textContent.toLowerCase(); // Récupération du texte cliqué
-  console.log(
-    "Voici la catégory de option ",
-    category,
-    " pour l'option ",
-    option
-  );
+  //   const category = optionElement.dataset.category; // Récupération de la catégorie
+  //   const option = optionElement.textContent.trim().toLowerCase(); // Nettoyage du texte
+
+  //   console.log("🟢 Catégorie détectée :", category);
+  //   console.log("🟢 Texte de l'option :", option);
+
+  if (!category) {
+    console.warn("⚠️ Aucune catégorie détectée pour :", option);
+    return; // On ne continue pas si la catégorie est manquante
+  }
 
   if (category === "ingredients") {
     if (!selectedIngredients.includes(option)) {
@@ -71,21 +74,13 @@ export const selectOptions = (
       selectedUstensils.push(option);
     }
   } else {
-    console.log("Il n'y a pas de catégorie trouvée pour", optionElement);
+    console.warn("⚠️ Catégorie inconnue :", category);
+    return;
   }
 
-  console.log("Voici selectedIngredients Validé", selectedIngredients);
-  console.log("Voici selectedAppliances Validé", selectedAppliances);
-  console.log("Voici selectedUstensils Validé", selectedUstensils);
-
-  //   filterAndMapRecipes(
-  //     filteredRecipes,
-  //     mainSearchValue,
-  //     selectedIngredients,
-  //     selectedAppliances,
-  //     selectedUstensils
-  //   );
-  //   renderRecipes(filteredRecipes);
+  console.log("✔️ selectedIngredients:", selectedIngredients);
+  console.log("✔️ selectedAppliances:", selectedAppliances);
+  console.log("✔️ selectedUstensils:", selectedUstensils);
 };
 
 const getOptionValues = (recipes, key) => {

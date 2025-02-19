@@ -97,12 +97,12 @@ const displayOptions = (optionsContainer, options, category) => {
   // Un seul écouteur d'événements pour tout le conteneur
   optionsContainer.addEventListener("click", (event) => {
     const clickedOption = event.target;
-    const option = clickedOption.textContent.toLowerCase();
+    const optionToTag = clickedOption.textContent.toLowerCase();
 
-    console.log("option", option);
+    console.log("optionToTag", optionToTag);
     if (clickedOption.classList.contains("dropdown-item")) {
       addTag(
-        option,
+        optionToTag,
         category,
         selectedIngredients,
         selectedTagsContainer
@@ -110,7 +110,8 @@ const displayOptions = (optionsContainer, options, category) => {
         // updateFiltersCallback
       );
       selectOptions(
-        clickedOption,
+        category,
+        optionToTag,
         selectedIngredients,
         selectedAppliances,
         selectedUstensils
@@ -132,7 +133,7 @@ const displayOptions = (optionsContainer, options, category) => {
       displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
       displayOptions(applianceOptionsContainer, appliances, "appliances");
       displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
-      removeOptionFromDropdown(option, category); // <------------------PROBLEME ICI
+      removeOptionFromDropdown(optionToTag, category); // <------------------PROBLEME ICI
     }
   });
 };
