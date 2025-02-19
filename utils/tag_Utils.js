@@ -1,33 +1,30 @@
 // Function to add a tag to the selected tags array and update the UI
-export function addTag(
+export function addTagToContainer(
   tagText,
   selector,
-  selectedIngredients,
+  selectedTags,
   tagContainerUnified,
-  removeTagCallback,
-  updateFiltersCallback
+  removeTagCallback
+  // updateFiltersCallback
 ) {
-  if (!selectedIngredients.includes(tagText)) {
-    selectedIngredients.push(tagText); // Add tag to the selected tags array
-    console.log("selectedTags", selectedIngredients);
+  if (selectedTags.includes(tagText)) {  return;  } // If the tag is already selected, return
+  
+  selectedTags.push(tagText); // Add tag to the selected tags array
+  console.log("selectedTags", selectedTags);
 
-    const tagElement = document.createElement("div");
-    tagElement.classList.add("tag");
-    tagElement.innerHTML = `<span>${tagText}</span><button>x</button>`; // Add the tag text and a remove button
+  const tagElement = document.createElement("div");
+  tagElement.classList.add("tag");
+  tagElement.innerHTML = `<span>${tagText}</span><button>x</button>`; // Add the tag text and a remove button
 
-    // Add event listener to the remove button
-    tagElement
-      .querySelector("button")
-      .addEventListener("click", () =>
-        removeTagCallback(tagText, tagElement, selector)
-      );
+  // Add event listener to the remove button
+  tagElement
+    .querySelector("button")
+    .addEventListener("click", () =>
+      removeTagCallback(tagText, tagElement, selector)
+    );
 
-    tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
-    removeOptionFromDropdown(tagText, selector); // Remove the selected tag from the dropdown options
-    updateFiltersCallback(); // Update filters based on the new selection
-    return true; // Tag added
-  }
-  return false; // Tag already exists
+  tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
+  
 }
 
 // Function to remove a tag and update the UI
@@ -50,13 +47,19 @@ export function removeTag(
 
 // Function to remove an option from the dropdown after selecting it as a tag
 export function removeOptionFromDropdown(tagText, selector) {
-  const dropdownContainer = document.querySelector(selector); // Get dropdown container by selector
+  console.log("Voici la category", selector);
+  console.log("Voici tagText", tagText);
+  const dropdownContainer = document.querySelector(`.${selector}-options`); // Get dropdown container by selector
+  console.log("dropdownContainer", dropdownContainer, selector);
+
   const options = Array.from(dropdownContainer.children); // Get all dropdown options
+  console.log("options", options);
 
   // Find the option matching the selected tag text
   const optionToRemove = options.find(
     (option) => option.textContent.trim() === tagText.trim()
   );
+  console.log("optionToRemove", optionToRemove);
   if (optionToRemove) {
     dropdownContainer.removeChild(optionToRemove); // Remove the option from the dropdown
   }

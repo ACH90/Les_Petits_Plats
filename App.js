@@ -2,38 +2,32 @@ import RecipeCardFactory from "./factories/RecipeCardFactory.js";
 import recipes from "./data/recipes.js";
 import { handleChange, showXButton, handleClear } from "./utils/query_Utils.js";
 import { filterAndMapRecipes } from "./utils/filterAndMapRecipes.js";
-import //   getAllIngredients,
-//   getAllAppliances,
-//   getAllUstensils,
-//   updateOptions,
-//   getAllOptions,
-"./utils/filter_Utils.js";
-import { addTag, removeTag } from "./utils/tag_Utils.js";
+import {
+  addTagToContainer,
+  removeOptionFromDropdown,
+} from "./utils/tag_Utils.js";
+import { selectOptions, updateOptions } from "./utils/filter_Utils.js";
 
 const Cardscontainer = document.getElementById("recipes-container");
 const mainSearchInput = document.getElementById("search-bar");
 const mainClearButton = document.getElementById("clear-button");
 const recipesCountContainer = document.getElementById("recipe-count");
 
-const ingredientsSet = new Set();
-let ingredientOptions = [""];
+let selectedTags = [];
+
 let selectedIngredients = [];
 const ingredientSearchInput = document.getElementById("ingredient-search");
 const ingredientOptionsContainer = document.querySelector(
-  ".ingredient-options"
+  ".ingredients-options"
 );
 
-const appliancesSet = new Set();
-let applianceOptions = [""];
 let selectedAppliances = [];
 const applianceSearchInput = document.getElementById("appliance-search");
-const applianceOptionsContainer = document.querySelector(".appliance-options");
+const applianceOptionsContainer = document.querySelector(".appliances-options");
 
-const ustensilsSet = new Set();
-let ustensilOptions = [""];
 let selectedUstensils = [];
 const ustensilSearchInput = document.getElementById("ustensil-search");
-const ustensilOptionsContainer = document.querySelector(".ustensil-options");
+const ustensilOptionsContainer = document.querySelector(".ustensils-options");
 let mainQuerryValue = "";
 let mainSearchValue = "";
 
@@ -65,9 +59,6 @@ let ingredients = [];
 let appliances = [];
 let ustensils = [];
 
-const optionElement = "";
-let optionsListes = "";
-
 //------------------------------------------------------------------------------------------------------------
 
 const renderRecipes = (recipeList) => {
@@ -80,87 +71,6 @@ const renderRecipes = (recipeList) => {
     Cardscontainer.appendChild(recipeCard);
   });
   console.log("Voici recipeList", recipeList);
-};
-
-const getOptionValues = (recipes, key) => {
-  const valuesSet = new Set();
-
-  recipes.forEach((recipe) => {
-    if (Array.isArray(recipe[key])) {
-      // Cas où c'est un tableau (ex: ingredients, ustensils)
-      recipe[key].forEach((item) => {
-        valuesSet.add(
-          typeof item === "object"
-            ? item.ingredient.toLowerCase()
-            : item.toLowerCase()
-        );
-      });
-    } else if (typeof recipe[key] === "string") {
-      // Cas où c'est une simple string (ex: appliance)
-      valuesSet.add(recipe[key].toLowerCase());
-    }
-  });
-
-  return Array.from(valuesSet).sort();
-};
-
-const updateOptions = (ingredients, appliances, ustensils, filteredRecipes) => {
-  // Effacer les options actuelles
-  ingredients.length = 0;
-  appliances.length = 0;
-  ustensils.length = 0;
-
-  // Ajouter les nouvelles options
-  ingredients.push(...getOptionValues(filteredRecipes, "ingredients"));
-  appliances.push(...getOptionValues(filteredRecipes, "appliance"));
-  ustensils.push(...getOptionValues(filteredRecipes, "ustensils"));
-
-  // Afficher les nouvelles options dans la console
-  console.log("Voici ingredients", ingredients);
-  console.log("Voici appliances", appliances);
-  console.log("Voici ustensils", ustensils);
-  console.log("Voici filteredRecipes", filteredRecipes);
-};
-
-const selectOptions = (optionElement) => {
-  if (!optionElement) {
-    console.error("Erreur : optionElement est undefined !");
-    return;
-  }
-
-  console.log("optionElement", optionElement);
-
-  const category = optionElement.dataset.category;
-  const option = optionElement.textContent.toLowerCase(); // Récupération du texte cliqué
-
-  if (category === "ingredients") {
-    if (!selectedIngredients.includes(option)) {
-      selectedIngredients.push(option);
-    }
-  } else if (category === "appliances") {
-    if (!selectedAppliances.includes(option)) {
-      selectedAppliances.push(option);
-    }
-  } else if (category === "ustensils") {
-    if (!selectedUstensils.includes(option)) {
-      selectedUstensils.push(option);
-    }
-  } else {
-    console.log("Il n'y a pas de catégorie trouvée pour", optionElement);
-  }
-
-  console.log("Voici selectedIngredients Validé", selectedIngredients);
-  console.log("Voici selectedAppliances Validé", selectedAppliances);
-  console.log("Voici selectedUstensils Validé", selectedUstensils);
-
-  filterAndMapRecipes(
-    filteredRecipes,
-    mainSearchValue,
-    selectedIngredients,
-    selectedAppliances,
-    selectedUstensils
-  );
-  renderRecipes(filteredRecipes);
 };
 
 const displayOptions = (optionsContainer, options, category) => {
@@ -178,8 +88,28 @@ const displayOptions = (optionsContainer, options, category) => {
   // Un seul écouteur d'événements pour tout le conteneur
   optionsContainer.addEventListener("click", (event) => {
     const clickedOption = event.target;
+    const optionToTag = clickedOption.textContent.toLowerCase();
+
+    console.log("optionToTag", optionToTag);
     if (clickedOption.classList.contains("dropdown-item")) {
-      selectOptions(clickedOption);
+      console.log("✔️ selectedIngredients before:", selectedIngredients);
+      console.log("✔️ selectedAppliances before:", selectedAppliances);
+      console.log("✔️ selectedUstensils before:", selectedUstensils);
+      
+      addTagToContainer(
+        optionToTag,
+        category,
+        selectedTags,
+        selectedTagsContainer
+      );
+
+      selectOptions(
+        category,
+        optionToTag,
+        selectedIngredients,
+        selectedAppliances,
+        selectedUstensils
+      );
 
       // Mettre à jour les recettes avec les nouveaux filtres
       filteredRecipes = filterAndMapRecipes(
@@ -197,6 +127,7 @@ const displayOptions = (optionsContainer, options, category) => {
       displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
       displayOptions(applianceOptionsContainer, appliances, "appliances");
       displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
+      removeOptionFromDropdown(optionToTag, category); // <------------------PROBLEME ICI
     }
   });
 };
@@ -232,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //------------------------------ECOUTEURS D'EVENNEMENTS--------------------------------------------------------------
 
-  //la barre de recherche principale
+  //---------------------------------------la barre de recherche principale
 
   mainSearchInput.addEventListener("input", (e) => {
     mainQuerryValue = e.target.value;
@@ -275,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
   });
 
-  //Les Catégories
+  //-----------------------------------------------------Les Catégories
 
   //la barre de recherche des ingredients
   ingredientSearchInput.addEventListener("input", (e) => {
