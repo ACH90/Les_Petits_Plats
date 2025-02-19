@@ -61,7 +61,7 @@ let ustensils = [];
 
 //------------------------------------------------------------------------------------------------------------
 
-const renderRecipes = (recipeList) => {
+export const renderRecipes = (recipeList) => {
   Cardscontainer.innerHTML = "";
 
   recipesCountContainer.textContent = `${recipeList.length} recettes`;
@@ -104,6 +104,8 @@ const displayOptions = (optionsContainer, options, category) => {
         selectedIngredients,
         selectedAppliances,
         selectedUstensils,
+        filteredRecipes,
+        mainSearchValue,
         displayOptions
         // renderRecipes
       );

@@ -1,6 +1,8 @@
 // Function to add a tag to the selected tags array and update the UI
 import { UnselectOptions, updateOptions } from "./filter_Utils.js";
 import { filterAndMapRecipes } from "./filterAndMapRecipes.js";
+import { renderRecipes } from "./../App.js";
+import recipes from "./../data/recipes.js";
 export function addTagToContainer(
   tagText,
   selector,
@@ -9,6 +11,8 @@ export function addTagToContainer(
   selectedIngredients,
   selectedAppliances,
   selectedUstensils,
+  filteredRecipes,
+  mainSearchValue,
   updateFiltersCallback
   // updateFiltersCallback
 ) {
@@ -49,6 +53,17 @@ export function addTagToContainer(
       selectedAppliances,
       selectedUstensils
     );
+
+    filteredRecipes = filterAndMapRecipes(
+      recipes,
+      mainSearchValue,
+      selectedIngredients,
+      selectedAppliances,
+      selectedUstensils
+    );
+
+    console.log("filteredRecipes dans addTag", filteredRecipes);
+    renderRecipes(filteredRecipes);
 
     // filterAndMapRecipes();
     // renderRecipes();
