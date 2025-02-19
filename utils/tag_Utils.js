@@ -4,8 +4,8 @@ export function addTag(
   selector,
   selectedIngredients,
   tagContainerUnified,
-  removeTagCallback,
-  updateFiltersCallback
+  removeTagCallback
+  // updateFiltersCallback
 ) {
   if (!selectedIngredients.includes(tagText)) {
     selectedIngredients.push(tagText); // Add tag to the selected tags array
@@ -24,7 +24,7 @@ export function addTag(
 
     tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
     removeOptionFromDropdown(tagText, selector); // Remove the selected tag from the dropdown options
-    updateFiltersCallback(); // Update filters based on the new selection
+    // updateFiltersCallback(); // Update filters based on the new selection
     return true; // Tag added
   }
   return false; // Tag already exists
@@ -50,7 +50,8 @@ export function removeTag(
 
 // Function to remove an option from the dropdown after selecting it as a tag
 export function removeOptionFromDropdown(tagText, selector) {
-  const dropdownContainer = document.querySelector(selector); // Get dropdown container by selector
+  const dropdownContainer = document.querySelector(`.${selector}-options`); // Get dropdown container by selector
+  console.log("dropdownContainer", dropdownContainer, selector);
   const options = Array.from(dropdownContainer.children); // Get all dropdown options
 
   // Find the option matching the selected tag text
