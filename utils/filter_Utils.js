@@ -51,6 +51,12 @@ export const selectOptions = (
 
   const category = optionElement.dataset.category;
   const option = optionElement.textContent.toLowerCase(); // Récupération du texte cliqué
+  console.log(
+    "Voici la catégory de option ",
+    category,
+    " pour l'option ",
+    option
+  );
 
   if (category === "ingredients") {
     if (!selectedIngredients.includes(option)) {

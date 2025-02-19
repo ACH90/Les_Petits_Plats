@@ -2,7 +2,12 @@ import RecipeCardFactory from "./factories/RecipeCardFactory.js";
 import recipes from "./data/recipes.js";
 import { handleChange, showXButton, handleClear } from "./utils/query_Utils.js";
 import { filterAndMapRecipes } from "./utils/filterAndMapRecipes.js";
-import { addTag, removeTag } from "./utils/tag_Utils.js";
+import {
+  addTag,
+  removeTag,
+  removeOptionFromDropdown,
+  addOptionToDropdown,
+} from "./utils/tag_Utils.js";
 import { selectOptions, updateOptions } from "./utils/filter_Utils.js";
 
 const Cardscontainer = document.getElementById("recipes-container");
@@ -100,8 +105,8 @@ const displayOptions = (optionsContainer, options, category) => {
         option,
         category,
         selectedIngredients,
-        selectedTagsContainer,
-        removeTag
+        selectedTagsContainer
+        // removeTag
         // updateFiltersCallback
       );
       selectOptions(
@@ -127,6 +132,7 @@ const displayOptions = (optionsContainer, options, category) => {
       displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
       displayOptions(applianceOptionsContainer, appliances, "appliances");
       displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
+      removeOptionFromDropdown(option, category); // <------------------PROBLEME ICI
     }
   });
 };

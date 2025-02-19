@@ -23,7 +23,7 @@ export function addTag(
       );
 
     tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
-    removeOptionFromDropdown(tagText, selector); // Remove the selected tag from the dropdown options
+    // removeOptionFromDropdown(tagText, selector); // Remove the selected tag from the dropdown options
     // updateFiltersCallback(); // Update filters based on the new selection
     return true; // Tag added
   }
@@ -50,14 +50,19 @@ export function removeTag(
 
 // Function to remove an option from the dropdown after selecting it as a tag
 export function removeOptionFromDropdown(tagText, selector) {
+  console.log("Voici la category", selector);
+  console.log("Voici tagText", tagText);
   const dropdownContainer = document.querySelector(`.${selector}-options`); // Get dropdown container by selector
   console.log("dropdownContainer", dropdownContainer, selector);
+
   const options = Array.from(dropdownContainer.children); // Get all dropdown options
+  console.log("options", options);
 
   // Find the option matching the selected tag text
   const optionToRemove = options.find(
     (option) => option.textContent.trim() === tagText.trim()
   );
+  console.log("optionToRemove", optionToRemove);
   if (optionToRemove) {
     dropdownContainer.removeChild(optionToRemove); // Remove the option from the dropdown
   }
