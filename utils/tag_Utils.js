@@ -1,14 +1,21 @@
 // Function to add a tag to the selected tags array and update the UI
+import { UnselectOptions, updateOptions } from "./filter_Utils.js";
+import { filterAndMapRecipes } from "./filterAndMapRecipes.js";
 export function addTagToContainer(
   tagText,
   selector,
   selectedTags,
   tagContainerUnified,
-  removeTagCallback
+  selectedIngredients,
+  selectedAppliances,
+  selectedUstensils,
+  updateFiltersCallback
   // updateFiltersCallback
 ) {
-  if (selectedTags.includes(tagText)) {  return;  } // If the tag is already selected, return
-  
+  if (selectedTags.includes(tagText)) {
+    return;
+  } // If the tag is already selected, return
+
   selectedTags.push(tagText); // Add tag to the selected tags array
   console.log("selectedTags", selectedTags);
 
@@ -16,33 +23,40 @@ export function addTagToContainer(
   tagElement.classList.add("tag");
   tagElement.innerHTML = `<span>${tagText}</span><button>x</button>`; // Add the tag text and a remove button
 
+  console.log("selectedIngredients avant le addTag", selectedIngredients);
   // Add event listener to the remove button
-  tagElement
-    .querySelector("button")
-    .addEventListener("click", () =>
-      removeTagCallback(tagText, tagElement, selector)
+  tagElement.querySelector("button").addEventListener("click", (event) => {
+    const tagText =
+      event.target.parentElement.querySelector("span").textContent;
+    console.log("tagText apres le clic sur la croix", tagText);
+    console.log("selector apres le clic sur la croix", selector);
+
+    removeTagFromContainer(
+      tagText,
+      selector,
+      selectedTags,
+      tagContainerUnified,
+      tagElement,
+      selectedIngredients,
+      selectedAppliances,
+      selectedUstensils
     );
 
+    UnselectOptions(
+      selector,
+      tagText,
+      selectedIngredients,
+      selectedAppliances,
+      selectedUstensils
+    );
+
+    // filterAndMapRecipes();
+    // renderRecipes();
+    // updateOptions();
+    // displayOptions();
+  });
+
   tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
-  
-}
-
-// Function to remove a tag and update the UI
-export function removeTag(
-  tagText,
-  tagElement,
-  selector,
-  selectedTags,
-  tagContainerUnified,
-  addOptionToDropdownCallback,
-  updateFiltersCallback
-) {
-  selectedTags = selectedTags.filter((tag) => tag !== tagText); // Remove the tag from the selected tags array
-  tagContainerUnified.removeChild(tagElement); // Remove the tag from the tag container
-
-  addOptionToDropdownCallback(tagText, selector); // Re-add the option to the dropdown
-  updateFiltersCallback(); // Update filters based on the removal
-  return selectedTags; // Return updated selectedTags
 }
 
 // Function to remove an option from the dropdown after selecting it as a tag
@@ -65,9 +79,31 @@ export function removeOptionFromDropdown(tagText, selector) {
   }
 }
 
+// Function to remove a tag and update the UI
+export function removeTagFromContainer(
+  tagText,
+  selector,
+  selectedTags,
+  tagContainerUnified,
+  tagElement
+) {
+  selectedTags = selectedTags.filter((tag) => tag !== tagText); // Remove the tag from the selected tags array
+  tagContainerUnified.removeChild(tagElement); // Remove the tag from the tag container
+
+  console.log(tagText, " supprimé du Container");
+
+  return selectedTags; // Return updated selectedTags
+}
+
 // Function to re-add an option to the dropdown after removing the tag
 export function addOptionToDropdown(tagText, selector, addTagCallback) {
-  const dropdownContainer = document.querySelector(selector);
+  const dropdownContainer = document.querySelector(`.${selector}-options`);
+  console.log(
+    "Voici dropdownContainer",
+    dropdownContainer,
+    "Voici selector",
+    selector
+  );
   const option = document.createElement("li");
   option.textContent = tagText;
   option.classList.add("dropdown-item");

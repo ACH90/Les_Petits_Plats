@@ -95,13 +95,22 @@ const displayOptions = (optionsContainer, options, category) => {
       console.log("✔️ selectedIngredients before:", selectedIngredients);
       console.log("✔️ selectedAppliances before:", selectedAppliances);
       console.log("✔️ selectedUstensils before:", selectedUstensils);
-      
+
       addTagToContainer(
         optionToTag,
         category,
         selectedTags,
-        selectedTagsContainer
+        selectedTagsContainer,
+        selectedIngredients,
+        selectedAppliances,
+        selectedUstensils,
+        displayOptions
+        // renderRecipes
       );
+
+      console.log("✔️ selectedIngredients after:", selectedIngredients);
+      console.log("✔️ selectedAppliances after:", selectedAppliances);
+      console.log("✔️ selectedUstensils after:", selectedUstensils);
 
       selectOptions(
         category,

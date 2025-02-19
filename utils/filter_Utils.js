@@ -39,6 +39,47 @@ export const selectOptions = (
   console.log("✔️ selectedUstensils after:", selectedUstensils);
 };
 
+export const UnselectOptions = (
+  category,
+  option,
+  selectedIngredients,
+  selectedAppliances,
+  selectedUstensils
+) => {
+  if (!category) {
+    console.error("❌ Erreur : optionElement est undefined !");
+    return;
+  }
+
+  if (!category) {
+    console.warn("⚠️ Aucune catégorie détectée pour :", option);
+    return; // On ne continue pas si la catégorie est manquante
+  }
+
+  console.log("✔️ Catégorie :", category);
+
+  if (category === "ingredients") {
+    const index = selectedIngredients.indexOf(option);
+    if (index !== -1) {
+      selectedIngredients.splice(index, 1);
+    }
+  } else if (category === "appliances") {
+    const index = selectedAppliances.indexOf(option);
+    if (index !== -1) {
+      selectedAppliances.splice(index, 1);
+    }
+  } else if (category === "ustensils") {
+    const index = selectedUstensils.indexOf(option);
+    if (index !== -1) {
+      selectedUstensils.splice(index, 1);
+    }
+  }
+
+  console.log("✔️ selectedIngredients after unselect:", selectedIngredients);
+  console.log("✔️ selectedAppliances after unselect:", selectedAppliances);
+  console.log("✔️ selectedUstensils after unselect:", selectedUstensils);
+};
+
 const getOptionValues = (recipes, key) => {
   const valuesSet = new Set();
 
