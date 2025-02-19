@@ -1,33 +1,30 @@
 // Function to add a tag to the selected tags array and update the UI
-export function addTag(
+export function addTagToContainer(
   tagText,
   selector,
-  selectedIngredients,
+  selectedTags,
   tagContainerUnified,
   removeTagCallback
   // updateFiltersCallback
 ) {
-  if (!selectedIngredients.includes(tagText)) {
-    selectedIngredients.push(tagText); // Add tag to the selected tags array
-    console.log("selectedTags", selectedIngredients);
+  if (selectedTags.includes(tagText)) {  return;  } // If the tag is already selected, return
+  
+  selectedTags.push(tagText); // Add tag to the selected tags array
+  console.log("selectedTags", selectedTags);
 
-    const tagElement = document.createElement("div");
-    tagElement.classList.add("tag");
-    tagElement.innerHTML = `<span>${tagText}</span><button>x</button>`; // Add the tag text and a remove button
+  const tagElement = document.createElement("div");
+  tagElement.classList.add("tag");
+  tagElement.innerHTML = `<span>${tagText}</span><button>x</button>`; // Add the tag text and a remove button
 
-    // Add event listener to the remove button
-    tagElement
-      .querySelector("button")
-      .addEventListener("click", () =>
-        removeTagCallback(tagText, tagElement, selector)
-      );
+  // Add event listener to the remove button
+  tagElement
+    .querySelector("button")
+    .addEventListener("click", () =>
+      removeTagCallback(tagText, tagElement, selector)
+    );
 
-    tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
-    // removeOptionFromDropdown(tagText, selector); // Remove the selected tag from the dropdown options
-    // updateFiltersCallback(); // Update filters based on the new selection
-    return true; // Tag added
-  }
-  return false; // Tag already exists
+  tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
+  
 }
 
 // Function to remove a tag and update the UI

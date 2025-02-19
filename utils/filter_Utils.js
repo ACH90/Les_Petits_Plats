@@ -1,41 +1,3 @@
-// optionElements.forEach((optionElement) =>
-//     optionElement.addEventListener("click", () => {
-//       const option = optionElement.textContent.trim(); // Récupère le texte de l'option
-//       const optionsList = optionElement.getAttribute("data-filter"); // Récupère la catégorie
-
-//       selectOptions(option, optionsList);
-//       // Mettre à jour l'affichage des recettes avec les nouveaux filtres
-//       filteredRecipes = filterAndMapRecipes(
-//         filteredRecipes,
-//         mainSearchValue,
-//         selectedIngredients,
-//         selectedAppliances,
-//         selectedUstensils
-//       );
-//       console.log("Voici filteredRecipes dans display", filteredRecipes);
-//       renderRecipes(filteredRecipes);
-//       updateOptions(ingredients, appliances, ustensils, filteredRecipes);
-
-//       displayOptions(
-//         ingredientOptionsContainer, // Conteneur pour les options des ingrédients
-//         ingredients, // Liste des ingrédients
-//         "ingredients" // La catégorie de filtre : ici 'ingredients'
-//       );
-
-//       displayOptions(
-//         applianceOptionsContainer, // Conteneur pour les options des appareils
-//         appliances, // Liste des appareils
-//         "appliances" // La catégorie de filtre : ici 'appliances'
-//       );
-
-//       displayOptions(
-//         ustensilOptionsContainer, // Conteneur pour les options des ustensiles
-//         ustensils, // Liste des ustensiles
-//         "ustensils" // La catégorie de filtre : ici 'ustensils'
-//       );
-//     })
-//   );
-
 export const selectOptions = (
   category,
   option,
@@ -48,18 +10,12 @@ export const selectOptions = (
     return;
   }
 
-  //   console.log("🟡 optionElement.dataset:", optionElement.dataset);
-
-  //   const category = optionElement.dataset.category; // Récupération de la catégorie
-  //   const option = optionElement.textContent.trim().toLowerCase(); // Nettoyage du texte
-
-  //   console.log("🟢 Catégorie détectée :", category);
-  //   console.log("🟢 Texte de l'option :", option);
-
   if (!category) {
     console.warn("⚠️ Aucune catégorie détectée pour :", option);
     return; // On ne continue pas si la catégorie est manquante
   }
+
+  console.log("✔️ Catégorie :", category);
 
   if (category === "ingredients") {
     if (!selectedIngredients.includes(option)) {
@@ -78,9 +34,9 @@ export const selectOptions = (
     return;
   }
 
-  console.log("✔️ selectedIngredients:", selectedIngredients);
-  console.log("✔️ selectedAppliances:", selectedAppliances);
-  console.log("✔️ selectedUstensils:", selectedUstensils);
+  console.log("✔️ selectedIngredients after:", selectedIngredients);
+  console.log("✔️ selectedAppliances after:", selectedAppliances);
+  console.log("✔️ selectedUstensils after:", selectedUstensils);
 };
 
 const getOptionValues = (recipes, key) => {

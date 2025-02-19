@@ -3,10 +3,8 @@ import recipes from "./data/recipes.js";
 import { handleChange, showXButton, handleClear } from "./utils/query_Utils.js";
 import { filterAndMapRecipes } from "./utils/filterAndMapRecipes.js";
 import {
-  addTag,
-  removeTag,
+  addTagToContainer,
   removeOptionFromDropdown,
-  addOptionToDropdown,
 } from "./utils/tag_Utils.js";
 import { selectOptions, updateOptions } from "./utils/filter_Utils.js";
 
@@ -15,22 +13,18 @@ const mainSearchInput = document.getElementById("search-bar");
 const mainClearButton = document.getElementById("clear-button");
 const recipesCountContainer = document.getElementById("recipe-count");
 
-const ingredientsSet = new Set();
-let ingredientOptions = [""];
+let selectedTags = [];
+
 let selectedIngredients = [];
 const ingredientSearchInput = document.getElementById("ingredient-search");
 const ingredientOptionsContainer = document.querySelector(
   ".ingredients-options"
 );
 
-const appliancesSet = new Set();
-let applianceOptions = [""];
 let selectedAppliances = [];
 const applianceSearchInput = document.getElementById("appliance-search");
 const applianceOptionsContainer = document.querySelector(".appliances-options");
 
-const ustensilsSet = new Set();
-let ustensilOptions = [""];
 let selectedUstensils = [];
 const ustensilSearchInput = document.getElementById("ustensil-search");
 const ustensilOptionsContainer = document.querySelector(".ustensils-options");
@@ -65,9 +59,6 @@ let ingredients = [];
 let appliances = [];
 let ustensils = [];
 
-const optionElement = "";
-let optionsListes = "";
-
 //------------------------------------------------------------------------------------------------------------
 
 const renderRecipes = (recipeList) => {
@@ -101,14 +92,17 @@ const displayOptions = (optionsContainer, options, category) => {
 
     console.log("optionToTag", optionToTag);
     if (clickedOption.classList.contains("dropdown-item")) {
-      addTag(
+      console.log("✔️ selectedIngredients before:", selectedIngredients);
+      console.log("✔️ selectedAppliances before:", selectedAppliances);
+      console.log("✔️ selectedUstensils before:", selectedUstensils);
+      
+      addTagToContainer(
         optionToTag,
         category,
-        selectedIngredients,
+        selectedTags,
         selectedTagsContainer
-        // removeTag
-        // updateFiltersCallback
       );
+
       selectOptions(
         category,
         optionToTag,
