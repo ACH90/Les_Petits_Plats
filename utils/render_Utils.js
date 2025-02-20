@@ -2,8 +2,11 @@ import RecipeCardFactory from "./../factories/RecipeCardFactory.js";
 
 const recipeFactory = new RecipeCardFactory();
 const Cardscontainer = document.getElementById("recipes-container");
+const errorContainer = document.createElement("div");
+errorContainer.classList.add("no-results-message");
+Cardscontainer.parentElement.appendChild(errorContainer);
 
-export const renderRecipes = (recipeList) => {
+export const renderRecipes = (recipeList, query) => {
   Cardscontainer.innerHTML = "";
   const recipesCountContainer = document.getElementById("recipe-count");
   recipesCountContainer.textContent = `${recipeList.length} recettes`;
@@ -14,7 +17,13 @@ export const renderRecipes = (recipeList) => {
   });
 
   if (recipeList.length === 0) {
-    // const noResultsContainer = document.getElementById("no-results");
-    // noResultsContainer.style.display = "block";
+    displayNoResultsMessage(query);
   }
 };
+
+export function displayNoResultsMessage(query) {
+  // Display a custom error message with the user's query
+  errorContainer.innerHTML = `
+      <p>Aucune recette ne contient '${query}'. Vous pouvez chercher des termes comme « tarte aux pommes », « poisson », etc.</p>
+  `;
+}

@@ -22,6 +22,8 @@ let selectedUstensils = [];
 const ustensilOptionsContainer = document.querySelector(".ustensils-options");
 
 let mainSearchValue = "";
+let mainQuerryValue = "";
+
 let ingredientSearchValue = "";
 
 let applianceSearchValue = "";
@@ -102,7 +104,7 @@ const displayOptions = (optionsContainer, options, category) => {
       displayOptions(applianceOptionsContainer, appliances, "appliances");
       displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
       removeOptionFromDropdown(optionToTag, category);
-      renderRecipes(filteredRecipes);
+      renderRecipes(filteredRecipes, mainSearchValue);
     }
   });
 };
@@ -111,7 +113,7 @@ const displayOptions = (optionsContainer, options, category) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   //Affichage des recettes initiales
-  renderRecipes(filteredRecipes);
+  renderRecipes(filteredRecipes, mainSearchValue);
   updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
   displayOptions(
@@ -138,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainSearchInput = document.getElementById("search-bar");
   const mainClearButton = document.getElementById("clear-button");
   mainSearchInput.addEventListener("input", (e) => {
-    let mainQuerryValue = e.target.value;
+    mainQuerryValue = e.target.value;
     mainSearchValue = handleChange(
       e,
       mainSearchValue,
@@ -154,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedAppliances,
       selectedUstensils
     );
-    renderRecipes(filteredRecipes);
+    renderRecipes(filteredRecipes, mainSearchValue);
     updateOptions(ingredients, appliances, ustensils, filteredRecipes);
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
     displayOptions(applianceOptionsContainer, appliances, "appliances");
@@ -169,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showXButton(mainClearButton, mainQuerryValue);
 
     // Réafficher toutes les recettes après la réinitialisation
-    renderRecipes(recipes);
+    renderRecipes(recipes, mainSearchValue);
     updateOptions(ingredients, appliances, ustensils, recipes);
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
     displayOptions(applianceOptionsContainer, appliances, "appliances");
