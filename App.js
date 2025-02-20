@@ -1,4 +1,3 @@
-import RecipeCardFactory from "./factories/RecipeCardFactory.js";
 import recipes from "./data/recipes.js";
 import { handleChange, showXButton, handleClear } from "./utils/query_Utils.js";
 import { filterAndMapRecipes } from "./utils/filterAndMapRecipes.js";
@@ -52,8 +51,6 @@ let filteredRecipes = filterAndMapRecipes(
   selectedUstensils
 );
 
-const selectedTagsContainer = document.getElementById("selectedTags");
-
 let ingredients = [];
 let appliances = [];
 let ustensils = [];
@@ -89,7 +86,6 @@ const displayOptions = (optionsContainer, options, category) => {
         optionToTag,
         category,
         selectedTags,
-        selectedTagsContainer,
         selectedIngredients,
         selectedAppliances,
         selectedUstensils,

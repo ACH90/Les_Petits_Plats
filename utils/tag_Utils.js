@@ -3,11 +3,12 @@ import { UnselectOptions, updateOptions } from "./filter_Utils.js";
 import { filterAndMapRecipes } from "./filterAndMapRecipes.js";
 import { renderRecipes } from "./render_Utils.js";
 import recipes from "./../data/recipes.js";
+
+const selectedTagsContainer = document.getElementById("selectedTags");
 export function addTagToContainer(
   tagText,
   selector,
   selectedTags,
-  tagContainerUnified,
   selectedIngredients,
   selectedAppliances,
   selectedUstensils,
@@ -38,12 +39,7 @@ export function addTagToContainer(
     const tagTextToDelete =
       event.target.parentElement.querySelector("span").textContent;
 
-    removeTagFromContainer(
-      tagTextToDelete,
-      selectedTags,
-      tagContainerUnified,
-      tagElement
-    );
+    removeTagFromContainer(tagTextToDelete, selectedTags, tagElement);
 
     UnselectOptions(
       selector,
@@ -68,7 +64,7 @@ export function addTagToContainer(
     displayOptions(applianceOptionsContainer, appliances, "appliances");
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
   });
-  tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
+  selectedTagsContainer.appendChild(tagElement); // Append the tag to the tag container
 }
 
 // Function to remove an option from the dropdown after selecting it as a tag
@@ -87,17 +83,12 @@ export function removeOptionFromDropdown(tagText, selector) {
 }
 
 // Function to remove a tag and update the UI
-export function removeTagFromContainer(
-  tagText,
-  selectedTags,
-  tagContainerUnified,
-  tagElement
-) {
+export function removeTagFromContainer(tagText, selectedTags, tagElement) {
   const index = selectedTags.indexOf(tagText);
   if (index !== -1) {
     selectedTags.splice(index, 1);
   }
-  tagContainerUnified.removeChild(tagElement); // Remove the tag from the tag container
+  selectedTagsContainer.removeChild(tagElement); // Remove the tag from the tag container
   return selectedTags; // Return updated selectedTags
 }
 
