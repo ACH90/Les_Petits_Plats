@@ -12,34 +12,29 @@ const mainSearchInput = document.getElementById("search-bar");
 const mainClearButton = document.getElementById("clear-button");
 
 let selectedIngredients = [];
-const ingredientSearchInput = document.getElementById("ingredient-search");
+
 const ingredientOptionsContainer = document.querySelector(
   ".ingredients-options"
 );
 
 let selectedAppliances = [];
-const applianceSearchInput = document.getElementById("appliance-search");
+
 const applianceOptionsContainer = document.querySelector(".appliances-options");
 
 let selectedUstensils = [];
-const ustensilSearchInput = document.getElementById("ustensil-search");
+
 const ustensilOptionsContainer = document.querySelector(".ustensils-options");
 let mainQuerryValue = "";
 let mainSearchValue = "";
 
 let ingredientQuerryValue = "";
 let ingredientSearchValue = "";
-const ingredientClearButton = document.getElementById(
-  "ingredient-clear-button"
-);
 
 let applianceQuerryValue = "";
 let applianceSearchValue = "";
-const applianceClearButton = document.getElementById("appliance-clear-button");
 
 let ustensilQuerryValue = "";
 let ustensilSearchValue = "";
-const ustensilClearButton = document.getElementById("ustensil-clear-button");
 
 let filteredRecipes = filterAndMapRecipes(
   recipes,
@@ -193,6 +188,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //-----------------------------------------------------Les Catégories
 
   //la barre de recherche des ingredients
+  const ingredientSearchInput = document.getElementById("ingredient-search");
+  const ingredientClearButton = document.getElementById(
+    "ingredient-clear-button"
+  );
   ingredientSearchInput.addEventListener("input", (e) => {
     // Mettre à jour la valeur de la recherche
     ingredientQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
@@ -227,6 +226,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //la barre de recherche des appliances
+  const applianceSearchInput = document.getElementById("appliance-search");
+  const applianceClearButton = document.getElementById(
+    "appliance-clear-button"
+  );
   applianceSearchInput.addEventListener("input", (e) => {
     applianceQuerryValue = e.target.value.toLowerCase();
     applianceSearchValue = handleChange(e, applianceSearchValue);
@@ -252,6 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //la barre de recherche des ustensils
+  const ustensilSearchInput = document.getElementById("ustensil-search");
+  const ustensilClearButton = document.getElementById("ustensil-clear-button");
   ustensilSearchInput.addEventListener("input", (e) => {
     ustensilQuerryValue = e.target.value.toLowerCase();
     ustensilSearchValue = handleChange(e, ustensilSearchValue);
