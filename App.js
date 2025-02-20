@@ -11,8 +11,6 @@ import { renderRecipes } from "./utils/render_Utils.js";
 const mainSearchInput = document.getElementById("search-bar");
 const mainClearButton = document.getElementById("clear-button");
 
-let selectedTags = [];
-
 let selectedIngredients = [];
 const ingredientSearchInput = document.getElementById("ingredient-search");
 const ingredientOptionsContainer = document.querySelector(
@@ -85,7 +83,6 @@ const displayOptions = (optionsContainer, options, category) => {
       addTagToContainer(
         optionToTag,
         category,
-        selectedTags,
         selectedIngredients,
         selectedAppliances,
         selectedUstensils,

@@ -5,10 +5,10 @@ import { renderRecipes } from "./render_Utils.js";
 import recipes from "./../data/recipes.js";
 
 const selectedTagsContainer = document.getElementById("selectedTags");
+let selectedTags = [];
 export function addTagToContainer(
   tagText,
   selector,
-  selectedTags,
   selectedIngredients,
   selectedAppliances,
   selectedUstensils,
@@ -39,7 +39,7 @@ export function addTagToContainer(
     const tagTextToDelete =
       event.target.parentElement.querySelector("span").textContent;
 
-    removeTagFromContainer(tagTextToDelete, selectedTags, tagElement);
+    removeTagFromContainer(tagTextToDelete, tagElement);
 
     UnselectOptions(
       selector,
@@ -83,7 +83,7 @@ export function removeOptionFromDropdown(tagText, selector) {
 }
 
 // Function to remove a tag and update the UI
-export function removeTagFromContainer(tagText, selectedTags, tagElement) {
+export function removeTagFromContainer(tagText, tagElement) {
   const index = selectedTags.indexOf(tagText);
   if (index !== -1) {
     selectedTags.splice(index, 1);
