@@ -37,7 +37,6 @@ export function addTagToContainer(
   tagElement.querySelector("button").addEventListener("click", (event) => {
     const tagTextToDelete =
       event.target.parentElement.querySelector("span").textContent;
-    console.log("tagTextToDelete", tagTextToDelete);
 
     removeTagFromContainer(
       tagTextToDelete,
@@ -45,36 +44,12 @@ export function addTagToContainer(
       tagContainerUnified,
       tagElement
     );
-    console.log(
-      "✔️ selectedIngredients dans addToContainer 1:",
-      selectedIngredients
-    );
-    console.log(
-      "✔️ selectedAppliances dans addToContainer 1:",
-      selectedAppliances
-    );
-    console.log(
-      "✔️ selectedUstensils dans addToContainer 1:",
-      selectedUstensils
-    );
 
     UnselectOptions(
       selector,
       tagTextToDelete,
       selectedIngredients,
       selectedAppliances,
-      selectedUstensils
-    );
-    console.log(
-      "✔️ selectedIngredients dans addToContainer 2:",
-      selectedIngredients
-    );
-    console.log(
-      "✔️ selectedAppliances dans addToContainer 2:",
-      selectedAppliances
-    );
-    console.log(
-      "✔️ selectedUstensils dans addToContainer 2:",
       selectedUstensils
     );
 
@@ -92,21 +67,7 @@ export function addTagToContainer(
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
     displayOptions(applianceOptionsContainer, appliances, "appliances");
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
-    console.log("SelectedTags", selectedTags);
-    console.log(
-      "✔️ selectedIngredients dans addToContainer 3:",
-      selectedIngredients
-    );
-    console.log(
-      "✔️ selectedAppliances dans addToContainer 3:",
-      selectedAppliances
-    );
-    console.log(
-      "✔️ selectedUstensils dans addToContainer 3:",
-      selectedUstensils
-    );
   });
-
   tagContainerUnified.appendChild(tagElement); // Append the tag to the tag container
 }
 
@@ -115,7 +76,6 @@ export function removeOptionFromDropdown(tagText, selector) {
   const dropdownContainer = document.querySelector(`.${selector}-options`); // Get dropdown container by selector
 
   const options = Array.from(dropdownContainer.children); // Get all dropdown options
-
   // Find the option matching the selected tag text
   const optionToRemove = options.find(
     (option) => option.textContent.trim() === tagText.trim()
@@ -137,25 +97,13 @@ export function removeTagFromContainer(
   if (index !== -1) {
     selectedTags.splice(index, 1);
   }
-
-  // selectedTags = selectedTags.filter((tag) => tag !== tagText); // Remove the tag from the selected tags array
   tagContainerUnified.removeChild(tagElement); // Remove the tag from the tag container
-
-  // console.log(tagText, " supprimé du Container");
-  // console.log("Maintenant =>>>> selectedTags", selectedTags);
-
   return selectedTags; // Return updated selectedTags
 }
 
 // Function to re-add an option to the dropdown after removing the tag
 export function addOptionToDropdown(tagText, selector, addTagCallback) {
   const dropdownContainer = document.querySelector(`.${selector}-options`);
-  // console.log(
-  //   "Voici dropdownContainer",
-  //   dropdownContainer,
-  //   "Voici selector",
-  //   selector
-  // );
   const option = document.createElement("li");
   option.textContent = tagText;
   option.classList.add("dropdown-item");

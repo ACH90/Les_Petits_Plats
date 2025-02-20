@@ -12,5 +12,4 @@ export const renderRecipes = (recipeList) => {
     const recipeCard = recipeFactory.createRecipeCard(recipe);
     Cardscontainer.appendChild(recipeCard);
   });
-  console.log("Voici recipeList", recipeList);
 };

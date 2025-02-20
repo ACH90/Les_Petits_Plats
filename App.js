@@ -62,7 +62,6 @@ let ustensils = [];
 
 const displayOptions = (optionsContainer, options, category) => {
   optionsContainer.innerText = ""; // Effacer le contenu du conteneur
-  console.log("category dans displayOptions:", category);
 
   options.forEach((option) => {
     const optionElement = document.createElement("li");
@@ -77,12 +76,7 @@ const displayOptions = (optionsContainer, options, category) => {
     const clickedOption = event.target;
     const optionToTag = clickedOption.textContent.toLowerCase();
 
-    console.log("optionToTag", optionToTag);
     if (clickedOption.classList.contains("dropdown-item")) {
-      console.log("✔️ selectedIngredients before:", selectedIngredients);
-      console.log("✔️ selectedAppliances before:", selectedAppliances);
-      console.log("✔️ selectedUstensils before:", selectedUstensils);
-
       selectOptions(
         category,
         optionToTag,
@@ -90,9 +84,6 @@ const displayOptions = (optionsContainer, options, category) => {
         selectedAppliances,
         selectedUstensils
       );
-      console.log("✔️ selectedIngredients 1:", selectedIngredients);
-      console.log("✔️ selectedAppliances 1:", selectedAppliances);
-      console.log("✔️ selectedUstensils 1:", selectedUstensils);
 
       addTagToContainer(
         optionToTag,
@@ -114,9 +105,6 @@ const displayOptions = (optionsContainer, options, category) => {
 
         // renderRecipes
       );
-      console.log("✔️ selectedIngredients 2:", selectedIngredients);
-      console.log("✔️ selectedAppliances 2:", selectedAppliances);
-      console.log("✔️ selectedUstensils 2:", selectedUstensils);
       //Initialiser filteredRecipes
 
       filteredRecipes = [];
@@ -131,20 +119,11 @@ const displayOptions = (optionsContainer, options, category) => {
 
       updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
-      console.log("✔️ selectedIngredients 3:", selectedIngredients);
-      console.log("✔️ selectedAppliances 3:", selectedAppliances);
-      console.log("✔️ selectedUstensils 3:", selectedUstensils);
       // Appeler displayOptions après avoir mis à jour les filtres
       displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
       displayOptions(applianceOptionsContainer, appliances, "appliances");
       displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
       removeOptionFromDropdown(optionToTag, category);
-
-      console.log("✔️ selectedIngredients 4:", selectedIngredients);
-      console.log("✔️ selectedAppliances 4:", selectedAppliances);
-      console.log("✔️ selectedUstensils 4:", selectedUstensils);
-
-      console.log("filteredRecipes après le clic :", filteredRecipes);
       renderRecipes(filteredRecipes);
     }
   });
@@ -153,18 +132,8 @@ const displayOptions = (optionsContainer, options, category) => {
 //------------------------------------------------------------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-  // if (
-  //   selectedIngredients.length === 0 &&
-  //   selectedAppliances.length === 0 &&
-  //   selectedUstensils.length === 0
-  // ) {
-  //   filteredRecipes.length = 0; // Vide le tableau
-  //   filteredRecipes.push(...recipeList); // Remet toutes les recettes
-  // }
   //Affichage des recettes initiales
   renderRecipes(filteredRecipes);
-
-  console.log("Voici filteredRecipes", filteredRecipes);
   updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
   displayOptions(
@@ -184,8 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ustensils, // Liste des ustensiles
     "ustensils" // La catégorie de filtre : ici 'ustensils'
   );
-
-  let optionElements = document.querySelectorAll(".dropdown-item");
 
   //------------------------------ECOUTEURS D'EVENNEMENTS--------------------------------------------------------------
 
@@ -209,8 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedUstensils
     );
     renderRecipes(filteredRecipes);
-    console.log("Voici mainSearchValue dans App handleChange", mainSearchValue);
-    console.log("Voici filteredRecipes dans ecouteur d'event", filteredRecipes);
     updateOptions(ingredients, appliances, ustensils, filteredRecipes);
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
     displayOptions(applianceOptionsContainer, appliances, "appliances");
@@ -254,8 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
       filteredIngredients,
       "ingredients"
     );
-
-    console.log("Ingrédients filtrés:", filteredIngredients);
   });
 
   //la croix de la barre de recherche des ingredients
@@ -305,8 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ustensil.toLowerCase().includes(ustensilQuerryValue)
     );
     displayOptions(ustensilOptionsContainer, filteredUstensils, "ustensils");
-
-    console.log("Ustensils filtrés:", filteredUstensils);
   });
 
   //la croix de la barre de recherche des ustensils
