@@ -24,6 +24,6 @@ export const renderRecipes = (recipeList, query) => {
 export function displayNoResultsMessage(query) {
   // Display a custom error message with the user's query
   errorContainer.innerHTML = `
-      <p>Aucune recette ne contient '${query}'. Vous pouvez chercher des termes comme « tarte aux pommes », « poisson », etc.</p>
+      <p>Aucune recette ne contient '${query}'</p>
   `;
 }
