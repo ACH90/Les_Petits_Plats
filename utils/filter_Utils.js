@@ -15,7 +15,7 @@ export const selectOptions = (
     return; // On ne continue pas si la catégorie est manquante
   }
 
-  console.log("✔️ Catégorie :", category);
+  //   console.log("✔️ Catégorie :", category);
 
   if (category === "ingredients") {
     if (!selectedIngredients.includes(option)) {
@@ -34,9 +34,9 @@ export const selectOptions = (
     return;
   }
 
-  console.log("✔️ selectedIngredients after:", selectedIngredients);
-  console.log("✔️ selectedAppliances after:", selectedAppliances);
-  console.log("✔️ selectedUstensils after:", selectedUstensils);
+  //   console.log("✔️ selectedIngredients after:", selectedIngredients);
+  //   console.log("✔️ selectedAppliances after:", selectedAppliances);
+  //   console.log("✔️ selectedUstensils after:", selectedUstensils);
 };
 
 export const UnselectOptions = (
@@ -47,37 +47,33 @@ export const UnselectOptions = (
   selectedUstensils
 ) => {
   if (!category) {
-    console.error("❌ Erreur : optionElement est undefined !");
+    console.error("❌ Erreur : category est undefined !");
     return;
   }
 
-  if (!category) {
-    console.warn("⚠️ Aucune catégorie détectée pour :", option);
-    return; // On ne continue pas si la catégorie est manquante
-  }
+  //   console.log("✔️ Catégorie :", category);
 
-  console.log("✔️ Catégorie :", category);
-
+  let selectedArray;
   if (category === "ingredients") {
-    const index = selectedIngredients.indexOf(option);
-    if (index !== -1) {
-      selectedIngredients.splice(index, 1);
-    }
+    selectedArray = selectedIngredients;
   } else if (category === "appliances") {
-    const index = selectedAppliances.indexOf(option);
-    if (index !== -1) {
-      selectedAppliances.splice(index, 1);
-    }
+    selectedArray = selectedAppliances;
   } else if (category === "ustensils") {
-    const index = selectedUstensils.indexOf(option);
-    if (index !== -1) {
-      selectedUstensils.splice(index, 1);
-    }
+    selectedArray = selectedUstensils;
+  } else {
+    console.warn("⚠️ Aucune catégorie détectée pour :", option);
+    return;
   }
 
-  console.log("✔️ selectedIngredients after unselect:", selectedIngredients);
-  console.log("✔️ selectedAppliances after unselect:", selectedAppliances);
-  console.log("✔️ selectedUstensils after unselect:", selectedUstensils);
+  // Suppression de l'option si elle existe dans le tableau
+  const index = selectedArray.indexOf(option);
+  if (index !== -1) {
+    selectedArray.splice(index, 1);
+  }
+
+  //   console.log("✔️ selectedIngredients after unselect:", selectedIngredients);
+  //   console.log("✔️ selectedAppliances after unselect:", selectedAppliances);
+  //   console.log("✔️ selectedUstensils after unselect:", selectedUstensils);
 };
 
 const getOptionValues = (recipes, key) => {
@@ -119,8 +115,8 @@ export const updateOptions = (
   ustensils.push(...getOptionValues(filteredRecipes, "ustensils"));
 
   // Afficher les nouvelles options dans la console
-  console.log("Voici ingredients", ingredients);
-  console.log("Voici appliances", appliances);
-  console.log("Voici ustensils", ustensils);
-  console.log("Voici filteredRecipes", filteredRecipes);
+  //   console.log("Voici ingredients", ingredients);
+  //   console.log("Voici appliances", appliances);
+  //   console.log("Voici ustensils", ustensils);
+  //   console.log("Voici filteredRecipes", filteredRecipes);
 };
