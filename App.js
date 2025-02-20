@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //---------------------------------------la barre de recherche principale
   const mainSearchInput = document.getElementById("search-bar");
   const mainClearButton = document.getElementById("clear-button");
+
   mainSearchInput.addEventListener("input", (e) => {
     mainQuerryValue = e.target.value;
     mainSearchValue = handleChange(
@@ -185,6 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const ingredientClearButton = document.getElementById(
     "ingredient-clear-button"
   );
+  const ingredientSearchGlass = document.getElementById(
+    "ingredient-search-icon"
+  );
   let ingredientQuerryValue = "";
   ingredientSearchInput.addEventListener("input", (e) => {
     // Mettre à jour la valeur de la recherche
@@ -192,7 +196,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ingredientSearchValue = handleChange(e, ingredientSearchValue);
 
     // Afficher/masquer le bouton 'X' selon la présence de texte dans le champ
-    showXButton(ingredientClearButton, ingredientQuerryValue);
+    showXButton(
+      ingredientClearButton,
+      ingredientQuerryValue,
+      ingredientSearchGlass
+    );
 
     // Filtrer les ingrédients selon la valeur de la recherche
     const filteredIngredients = ingredients.filter((ingredient) =>
@@ -214,7 +222,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ingredientQuerryValue = ""; // Réinitialise la variable manuellement
 
     // Masquer le bouton "X" après l'effacement
-    showXButton(ingredientClearButton, ingredientQuerryValue);
+    showXButton(
+      ingredientClearButton,
+      ingredientQuerryValue,
+      ingredientSearchGlass
+    );
 
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
   });
@@ -224,19 +236,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const applianceClearButton = document.getElementById(
     "appliance-clear-button"
   );
+  const applianceSearchGlass = document.getElementById("appliance-search-icon");
   let applianceQuerryValue = "";
   applianceSearchInput.addEventListener("input", (e) => {
     applianceQuerryValue = e.target.value.toLowerCase();
     applianceSearchValue = handleChange(e, applianceSearchValue);
 
-    showXButton(applianceClearButton, applianceQuerryValue);
+    showXButton(
+      applianceClearButton,
+      applianceQuerryValue,
+      applianceSearchGlass
+    );
 
     const filteredAppliances = appliances.filter((appliance) =>
       appliance.toLowerCase().includes(applianceQuerryValue)
     );
     displayOptions(applianceOptionsContainer, filteredAppliances, "appliances");
-
-    console.log("Appareils filtrés:", filteredAppliances);
   });
 
   //la croix de la barre de recherche des appliances
@@ -245,19 +260,24 @@ document.addEventListener("DOMContentLoaded", () => {
     handleClear(applianceSearchInput);
     applianceQuerryValue = "";
 
-    showXButton(applianceClearButton, applianceQuerryValue);
+    showXButton(
+      applianceClearButton,
+      applianceQuerryValue,
+      applianceSearchGlass
+    );
     displayOptions(applianceOptionsContainer, appliances, "appliances");
   });
 
   //la barre de recherche des ustensils
   const ustensilSearchInput = document.getElementById("ustensil-search");
   const ustensilClearButton = document.getElementById("ustensil-clear-button");
+  const ustensilSearchGlass = document.getElementById("ustensil-search-icon");
   let ustensilQuerryValue = "";
   ustensilSearchInput.addEventListener("input", (e) => {
     ustensilQuerryValue = e.target.value.toLowerCase();
     ustensilSearchValue = handleChange(e, ustensilSearchValue);
 
-    showXButton(ustensilClearButton, ustensilQuerryValue);
+    showXButton(ustensilClearButton, ustensilQuerryValue, ustensilSearchGlass);
     const filteredUstensils = ustensils.filter((ustensil) =>
       ustensil.toLowerCase().includes(ustensilQuerryValue)
     );
@@ -268,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ustensilClearButton.addEventListener("click", () => {
     handleClear(ustensilSearchInput);
     ustensilQuerryValue = "";
-    showXButton(ustensilClearButton, ustensilQuerryValue);
+    showXButton(ustensilClearButton, ustensilQuerryValue, ustensilSearchGlass);
 
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
   });

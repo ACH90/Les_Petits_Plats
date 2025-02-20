@@ -8,13 +8,15 @@ export const handleChange = (e, inputValue) => {
   return inputValue;
 };
 
-export const showXButton = (element, inputValue) => {
+export const showXButton = (ClearButton, inputValue, searchGlass) => {
   if (inputValue.length > 0) {
-    element.style.display = "block";
+    ClearButton.style.display = "block";
+    searchGlass.style.display = "none";
   }
 
   if (inputValue.length === 0) {
-    element.style.display = "none";
+    ClearButton.style.display = "none";
+    searchGlass.style.display = "block";
   }
 };
 
