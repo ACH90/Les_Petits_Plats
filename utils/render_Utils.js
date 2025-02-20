@@ -12,4 +12,9 @@ export const renderRecipes = (recipeList) => {
     const recipeCard = recipeFactory.createRecipeCard(recipe);
     Cardscontainer.appendChild(recipeCard);
   });
+
+  if (recipeList.length === 0) {
+    // const noResultsContainer = document.getElementById("no-results");
+    // noResultsContainer.style.display = "block";
+  }
 };

@@ -8,33 +8,29 @@ import {
 import { selectOptions, updateOptions } from "./utils/filter_Utils.js";
 import { renderRecipes } from "./utils/render_Utils.js";
 
-const mainSearchInput = document.getElementById("search-bar");
-const mainClearButton = document.getElementById("clear-button");
+//------------------------------------------------------
 
 let selectedIngredients = [];
-
 const ingredientOptionsContainer = document.querySelector(
   ".ingredients-options"
 );
 
 let selectedAppliances = [];
-
 const applianceOptionsContainer = document.querySelector(".appliances-options");
 
 let selectedUstensils = [];
-
 const ustensilOptionsContainer = document.querySelector(".ustensils-options");
-let mainQuerryValue = "";
-let mainSearchValue = "";
 
-let ingredientQuerryValue = "";
+let mainSearchValue = "";
 let ingredientSearchValue = "";
 
-let applianceQuerryValue = "";
 let applianceSearchValue = "";
 
-let ustensilQuerryValue = "";
 let ustensilSearchValue = "";
+
+let ingredients = [];
+let appliances = [];
+let ustensils = [];
 
 let filteredRecipes = filterAndMapRecipes(
   recipes,
@@ -43,11 +39,6 @@ let filteredRecipes = filterAndMapRecipes(
   selectedAppliances,
   selectedUstensils
 );
-
-let ingredients = [];
-let appliances = [];
-let ustensils = [];
-
 //------------------------------------------------------------------------------------------------------------
 
 const displayOptions = (optionsContainer, options, category) => {
@@ -90,12 +81,11 @@ const displayOptions = (optionsContainer, options, category) => {
         applianceOptionsContainer,
         ustensilOptionsContainer,
         displayOptions
-
-        // renderRecipes
       );
-      //Initialiser filteredRecipes
 
+      //Initialiser filteredRecipes
       filteredRecipes = [];
+
       // Mettre à jour les recettes avec les nouveaux filtres
       filteredRecipes = filterAndMapRecipes(
         recipes,
@@ -145,9 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //------------------------------ECOUTEURS D'EVENNEMENTS--------------------------------------------------------------
 
   //---------------------------------------la barre de recherche principale
-
+  const mainSearchInput = document.getElementById("search-bar");
+  const mainClearButton = document.getElementById("clear-button");
   mainSearchInput.addEventListener("input", (e) => {
-    mainQuerryValue = e.target.value;
+    let mainQuerryValue = e.target.value;
     mainSearchValue = handleChange(
       e,
       mainSearchValue,
@@ -192,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ingredientClearButton = document.getElementById(
     "ingredient-clear-button"
   );
+  let ingredientQuerryValue = "";
   ingredientSearchInput.addEventListener("input", (e) => {
     // Mettre à jour la valeur de la recherche
     ingredientQuerryValue = e.target.value.toLowerCase(); // Assurer une comparaison sans tenir compte de la casse
@@ -230,6 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const applianceClearButton = document.getElementById(
     "appliance-clear-button"
   );
+  let applianceQuerryValue = "";
   applianceSearchInput.addEventListener("input", (e) => {
     applianceQuerryValue = e.target.value.toLowerCase();
     applianceSearchValue = handleChange(e, applianceSearchValue);
@@ -257,6 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //la barre de recherche des ustensils
   const ustensilSearchInput = document.getElementById("ustensil-search");
   const ustensilClearButton = document.getElementById("ustensil-clear-button");
+  let ustensilQuerryValue = "";
   ustensilSearchInput.addEventListener("input", (e) => {
     ustensilQuerryValue = e.target.value.toLowerCase();
     ustensilSearchValue = handleChange(e, ustensilSearchValue);
@@ -269,10 +263,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //la croix de la barre de recherche des ustensils
-
   ustensilClearButton.addEventListener("click", () => {
     handleClear(ustensilSearchInput);
-    ingredientQuerryValue = "";
+    ustensilQuerryValue = "";
     showXButton(ustensilClearButton, ustensilQuerryValue);
 
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
