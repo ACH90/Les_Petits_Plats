@@ -1,13 +1,10 @@
 export const handleChange = (e, inputValue) => {
   inputValue = "";
   const value = e.target.value;
-  console.log("e.target.value", e.target.value);
-  console.log("value", value);
 
   if (value.length > 2) {
     inputValue = e.target.value;
   }
-  console.log("inputValue", inputValue);
   return inputValue;
 };
 

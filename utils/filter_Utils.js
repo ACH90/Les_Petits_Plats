@@ -15,8 +15,6 @@ export const selectOptions = (
     return; // On ne continue pas si la catégorie est manquante
   }
 
-  //   console.log("✔️ Catégorie :", category);
-
   if (category === "ingredients") {
     if (!selectedIngredients.includes(option)) {
       selectedIngredients.push(option);
@@ -33,10 +31,6 @@ export const selectOptions = (
     console.warn("⚠️ Catégorie inconnue :", category);
     return;
   }
-
-  //   console.log("✔️ selectedIngredients after:", selectedIngredients);
-  //   console.log("✔️ selectedAppliances after:", selectedAppliances);
-  //   console.log("✔️ selectedUstensils after:", selectedUstensils);
 };
 
 export const UnselectOptions = (
@@ -70,10 +64,6 @@ export const UnselectOptions = (
   if (index !== -1) {
     selectedArray.splice(index, 1);
   }
-
-  //   console.log("✔️ selectedIngredients after unselect:", selectedIngredients);
-  //   console.log("✔️ selectedAppliances after unselect:", selectedAppliances);
-  //   console.log("✔️ selectedUstensils after unselect:", selectedUstensils);
 };
 
 const getOptionValues = (recipes, key) => {
@@ -113,10 +103,4 @@ export const updateOptions = (
   ingredients.push(...getOptionValues(filteredRecipes, "ingredients"));
   appliances.push(...getOptionValues(filteredRecipes, "appliance"));
   ustensils.push(...getOptionValues(filteredRecipes, "ustensils"));
-
-  // Afficher les nouvelles options dans la console
-  //   console.log("Voici ingredients", ingredients);
-  //   console.log("Voici appliances", appliances);
-  //   console.log("Voici ustensils", ustensils);
-  //   console.log("Voici filteredRecipes", filteredRecipes);
 };
