@@ -11,12 +11,16 @@ export const handleChange = (e, inputValue) => {
 export const showXButton = (ClearButton, inputValue, searchGlass) => {
   if (inputValue.length > 0) {
     ClearButton.style.display = "block";
-    searchGlass.style.display = "none";
+    if (searchGlass) {
+      searchGlass.style.display = "none";
+    }
   }
 
   if (inputValue.length === 0) {
     ClearButton.style.display = "none";
-    searchGlass.style.display = "block";
+    if (searchGlass) {
+      searchGlass.style.display = "block";
+    }
   }
 };
 
