@@ -1,6 +1,6 @@
 import recipes from "./data/recipes.js";
 import { handleChange, showXButton, handleClear } from "./utils/query_Utils.js";
-import { filterRecipes } from "./utils/filterAndMapRecipes.js";
+import { filterRecipes } from "./utils/filterRecipes.js";
 import {
   addTagToContainer,
   removeOptionFromDropdown,

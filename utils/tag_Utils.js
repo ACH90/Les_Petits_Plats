@@ -1,5 +1,5 @@
 import { UnselectOptions, updateOptions } from "./filter_Utils.js";
-import { filterRecipes } from "./filterAndMapRecipes.js";
+import { filterRecipes } from "./filterRecipes.js";
 import { renderRecipesByMap } from "./render_Utils.js";
 import recipes from "./../data/recipes.js";
 
