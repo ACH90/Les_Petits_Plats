@@ -1,6 +1,6 @@
 import { UnselectOptions, updateOptions } from "./filter_Utils.js";
-import { filterAndMapRecipes } from "./filterAndMapRecipes.js";
-import { renderRecipes } from "./render_Utils.js";
+import { filterRecipes } from "./filterAndMapRecipes.js";
+import { renderRecipesByMap } from "./render_Utils.js";
 import recipes from "./../data/recipes.js";
 
 const selectedTagsContainer = document.getElementById("selectedTags");
@@ -46,7 +46,7 @@ export function addTagToContainer(
       selectedUstensils
     );
 
-    filteredRecipes = filterAndMapRecipes(
+    filteredRecipes = filterRecipes(
       recipes,
       mainSearchValue,
       selectedIngredients,
@@ -54,7 +54,7 @@ export function addTagToContainer(
       selectedUstensils
     );
 
-    renderRecipes(filteredRecipes, Cardscontainer);
+    renderRecipesByMap(filteredRecipes, Cardscontainer);
 
     updateOptions(ingredients, appliances, ustensils, filteredRecipes);
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");

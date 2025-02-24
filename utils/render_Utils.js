@@ -6,12 +6,12 @@ const errorContainer = document.createElement("div");
 errorContainer.classList.add("no-results-message");
 Cardscontainer.parentElement.appendChild(errorContainer);
 
-export const renderRecipes = (recipeList, query) => {
+export const renderRecipesByMap = (recipeList, query) => {
   Cardscontainer.innerHTML = "";
   const recipesCountContainer = document.getElementById("recipe-count");
   recipesCountContainer.textContent = `${recipeList.length} recettes`;
 
-  recipeList.forEach((recipe) => {
+  recipeList.map((recipe) => {
     const recipeCard = recipeFactory.createRecipeCard(recipe);
     Cardscontainer.appendChild(recipeCard);
   });

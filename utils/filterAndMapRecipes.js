@@ -1,4 +1,4 @@
-export const filterAndMapRecipes = (
+export const filterRecipes = (
   recipes,
   inputValue = "",
   selectedIngredients = [""],
@@ -11,19 +11,19 @@ export const filterAndMapRecipes = (
   if (!Array.isArray(selectedUstensils)) selectedUstensils = [];
 
   return recipes.filter((recipe) => {
-    const lowerInput = inputValue.toLowerCase();
-
-    // Vérification si le terme de recherche est présent dans le titre, la description ou les ingrédients
+    // Vérifie si le nom, la description ou un ingrédient correspond à la recherche
     const matchesInputValue =
-      recipe.name.toLowerCase().includes(lowerInput) ||
-      recipe.description.toLowerCase().includes(lowerInput) ||
+      recipe.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+      recipe.description.toLowerCase().includes(inputValue.toLowerCase()) ||
       recipe.ingredients.some((ingredientObj) =>
-        ingredientObj.ingredient.toLowerCase().includes(lowerInput)
+        ingredientObj.ingredient
+          .toLowerCase()
+          .includes(inputValue.toLowerCase())
       );
 
-    // Vérifier si chaque ingrédient sélectionné est présent dans la recette
+    // Vérifie si tous les ingrédients sélectionnés sont présents dans la recette
     const matchesSelectedIngredients =
-      selectedIngredients.length === 0 ||
+      selectedIngredients.length === 0 || // Aucun filtre si la liste est vide
       selectedIngredients.every((selectedIngredient) =>
         recipe.ingredients.some((ingredientObj) =>
           ingredientObj.ingredient
@@ -32,20 +32,23 @@ export const filterAndMapRecipes = (
         )
       );
 
-    // Vérifier si l'appareil sélectionné est dans la recette
+    // Vérifie si tous les appareils sélectionnés sont présents dans la recette
     const matchesSelectedAppliances =
-      selectedAppliances.length === 0 ||
-      selectedAppliances.includes(recipe.appliance.toLowerCase());
+      selectedAppliances.length === 0 || // Pas de filtre si aucun appareil sélectionné
+      selectedAppliances.every((appliance) =>
+        recipe.appliance.toLowerCase().includes(appliance.toLowerCase())
+      );
 
-    // Vérifier si chaque ustensile sélectionné est présent dans la recette
+    // Vérifie si tous les ustensiles sélectionnés sont présents dans la recette
     const matchesSelectedUstensils =
-      selectedUstensils.length === 0 ||
+      selectedUstensils.length === 0 || // Pas de filtre si aucun ustensile sélectionné
       selectedUstensils.every((ustensil) =>
         recipe.ustensils.some((ust) =>
           ust.toLowerCase().includes(ustensil.toLowerCase())
         )
       );
 
+    // Retourne vrai uniquement si tous les filtres sont satisfaits
     return (
       matchesInputValue &&
       matchesSelectedIngredients &&
