@@ -1,12 +1,12 @@
 import recipes from "./data/recipes.js";
 import { handleChange, showXButton, handleClear } from "./utils/query_Utils.js";
-import { filterAndMapRecipes } from "./utils/filterAndMapRecipes.js";
+import { filterRecipes } from "./utils/filterAndMapRecipes.js";
 import {
   addTagToContainer,
   removeOptionFromDropdown,
 } from "./utils/tag_Utils.js";
 import { selectOptions, updateOptions } from "./utils/filter_Utils.js";
-import { renderRecipes } from "./utils/render_Utils.js";
+import { renderRecipesByMap } from "./utils/render_Utils.js";
 
 //------------------------------------------------------
 
@@ -34,7 +34,7 @@ let ingredients = [];
 let appliances = [];
 let ustensils = [];
 
-let filteredRecipes = filterAndMapRecipes(
+let filteredRecipes = filterRecipes(
   recipes,
   mainSearchValue,
   selectedIngredients,
@@ -89,13 +89,15 @@ const displayOptions = (optionsContainer, options, category) => {
       filteredRecipes = [];
 
       // Mettre à jour les recettes avec les nouveaux filtres
-      filteredRecipes = filterAndMapRecipes(
+      filteredRecipes = filterRecipes(
         recipes,
         mainSearchValue,
         selectedIngredients,
         selectedAppliances,
         selectedUstensils
       );
+
+      console.log("filteredRecipes", filteredRecipes);
 
       updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
@@ -104,7 +106,7 @@ const displayOptions = (optionsContainer, options, category) => {
       displayOptions(applianceOptionsContainer, appliances, "appliances");
       displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
       removeOptionFromDropdown(optionToTag, category);
-      renderRecipes(filteredRecipes, mainSearchValue);
+      renderRecipesByMap(filteredRecipes, mainSearchValue);
     }
   });
 };
@@ -113,7 +115,7 @@ const displayOptions = (optionsContainer, options, category) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   //Affichage des recettes initiales
-  renderRecipes(filteredRecipes, mainSearchValue);
+  renderRecipesByMap(filteredRecipes, mainSearchValue);
   updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
   displayOptions(
@@ -150,14 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedUstensils
     );
     showXButton(mainClearButton, mainQuerryValue);
-    filteredRecipes = filterAndMapRecipes(
+    filteredRecipes = filterRecipes(
       recipes,
       mainSearchValue,
       selectedIngredients,
       selectedAppliances,
       selectedUstensils
     );
-    renderRecipes(filteredRecipes, mainSearchValue);
+    renderRecipesByMap(filteredRecipes, mainSearchValue);
     updateOptions(ingredients, appliances, ustensils, filteredRecipes);
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
     displayOptions(applianceOptionsContainer, appliances, "appliances");
@@ -172,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showXButton(mainClearButton, mainQuerryValue);
 
     // Réafficher toutes les recettes après la réinitialisation
-    renderRecipes(recipes, mainSearchValue);
+    renderRecipesByMap(recipes, mainSearchValue);
     updateOptions(ingredients, appliances, ustensils, recipes);
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
     displayOptions(applianceOptionsContainer, appliances, "appliances");
