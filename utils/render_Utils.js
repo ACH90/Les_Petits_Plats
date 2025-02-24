@@ -11,6 +11,11 @@ export const renderRecipesByMap = (recipeList, query) => {
   const recipesCountContainer = document.getElementById("recipe-count");
   recipesCountContainer.textContent = `${recipeList.length} recettes`;
 
+  // recipeList.forEach((recipe) => {
+  //   const recipeCard = recipeFactory.createRecipeCard(recipe);
+  //   Cardscontainer.appendChild(recipeCard);
+  // });
+
   recipeList.map((recipe) => {
     const recipeCard = recipeFactory.createRecipeCard(recipe);
     Cardscontainer.appendChild(recipeCard);

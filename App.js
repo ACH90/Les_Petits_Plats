@@ -97,8 +97,6 @@ const displayOptions = (optionsContainer, options, category) => {
         selectedAppliances,
         selectedUstensils
       );
-      console.log("filteredRecipes", filteredRecipes);
-
       updateOptions(ingredients, appliances, ustensils, filteredRecipes);
 
       // Appeler displayOptions après avoir mis à jour les filtres
