@@ -1,4 +1,3 @@
-// Function to add a tag to the selected tags array and update the UI
 import { UnselectOptions, updateOptions } from "./filter_Utils.js";
 import { filterAndMapRecipes } from "./filterAndMapRecipes.js";
 import { renderRecipes } from "./render_Utils.js";
@@ -22,19 +21,17 @@ export function addTagToContainer(
   ustensilOptionsContainer,
   displayOptions,
   Cardscontainer
-  // updateFiltersCallback
 ) {
   if (selectedTags.includes(tagText)) {
     return;
-  } // If the tag is already selected, return
+  } // Si le tag existe déja, on ne fait rien
 
-  selectedTags.push(tagText); // Add tag to the selected tags array
+  selectedTags.push(tagText);
 
   const tagElement = document.createElement("div");
   tagElement.classList.add("tag");
-  tagElement.innerHTML = `<span>${tagText}</span><button>x</button>`; // Add the tag text and a remove button
+  tagElement.innerHTML = `<span>${tagText}</span><button>x</button>`;
 
-  // Add event listener to the remove button
   tagElement.querySelector("button").addEventListener("click", (event) => {
     const tagTextToDelete =
       event.target.parentElement.querySelector("span").textContent;
@@ -64,10 +61,9 @@ export function addTagToContainer(
     displayOptions(applianceOptionsContainer, appliances, "appliances");
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
   });
-  selectedTagsContainer.appendChild(tagElement); // Append the tag to the tag container
+  selectedTagsContainer.appendChild(tagElement);
 }
 
-// Function to remove an option from the dropdown after selecting it as a tag
 export function removeOptionFromDropdown(tagText, selector) {
   const dropdownContainer = document.querySelector(`.${selector}-options`); // Get dropdown container by selector
 
@@ -82,7 +78,6 @@ export function removeOptionFromDropdown(tagText, selector) {
   }
 }
 
-// Function to remove a tag and update the UI
 export function removeTagFromContainer(tagText, tagElement) {
   const index = selectedTags.indexOf(tagText);
   if (index !== -1) {
@@ -92,7 +87,6 @@ export function removeTagFromContainer(tagText, tagElement) {
   return selectedTags; // Return updated selectedTags
 }
 
-// Function to re-add an option to the dropdown after removing the tag
 export function addOptionToDropdown(tagText, selector, addTagCallback) {
   const dropdownContainer = document.querySelector(`.${selector}-options`);
   const option = document.createElement("li");
