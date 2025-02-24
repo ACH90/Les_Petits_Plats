@@ -84,7 +84,6 @@ const displayOptions = (optionsContainer, options, category) => {
         ustensilOptionsContainer,
         displayOptions
       );
-      console.log("filteredRecipes AVAAANT", filteredRecipes);
 
       //Initialiser filteredRecipes
       filteredRecipes = [];
