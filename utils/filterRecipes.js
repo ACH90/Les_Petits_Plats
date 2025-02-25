@@ -1,7 +1,7 @@
 export const filterRecipes = (
   recipes,
   inputValue = "",
-  selectedIngredients = [""],
+  selectedIngredients = [],
   selectedAppliances = [],
   selectedUstensils = []
 ) => {

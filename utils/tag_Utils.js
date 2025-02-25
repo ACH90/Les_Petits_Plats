@@ -60,21 +60,53 @@ export function addTagToContainer(
     displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
     displayOptions(applianceOptionsContainer, appliances, "appliances");
     displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
+    removeOptionFromDropdown(
+      selectedIngredients,
+      selectedAppliances,
+      selectedUstensils
+    );
   });
   selectedTagsContainer.appendChild(tagElement);
 }
 
-export function removeOptionFromDropdown(tagText, selector) {
-  const dropdownContainer = document.querySelector(`.${selector}-options`); // Get dropdown container by selector
-
-  const options = Array.from(dropdownContainer.children); // Get all dropdown options
-  // Find the option matching the selected tag text
-  const optionToRemove = options.find(
-    (option) => option.textContent.trim() === tagText.trim()
+export function removeOptionFromDropdown(
+  selectedIngredients,
+  selectedAppliances,
+  selectedUstensils
+) {
+  // Sélection des containers des dropdowns
+  const ingredientOptionsContainer = document.querySelector(
+    ".ingredients-options"
   );
+  const applianceOptionsContainer = document.querySelector(
+    ".appliances-options"
+  );
+  const ustensilOptionsContainer = document.querySelector(".ustensils-options");
 
-  if (optionToRemove) {
-    dropdownContainer.removeChild(optionToRemove); // Remove the option from the dropdown
+  // Supprimer les ingrédients sélectionnés du dropdown des ingrédients
+  removeMultipleOptions(ingredientOptionsContainer, selectedIngredients);
+
+  // Supprimer les appareils sélectionnés du dropdown des appareils
+  removeMultipleOptions(applianceOptionsContainer, selectedAppliances);
+
+  // Supprimer les ustensiles sélectionnés du dropdown des ustensiles
+  removeMultipleOptions(ustensilOptionsContainer, selectedUstensils);
+}
+
+// Fonction pour supprimer plusieurs options d'un dropdown donné
+function removeMultipleOptions(dropdownContainer, selectedItems) {
+  if (!dropdownContainer) return; // Sécurité si le conteneur n'existe pas
+
+  const options = Array.from(dropdownContainer.children);
+
+  for (const item of selectedItems) {
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].textContent.trim() === item.trim()) {
+        console.log("Suppression de :", options[i]); // Vérifier quel élément est supprimé
+        dropdownContainer.removeChild(options[i]);
+        break; // Supprime uniquement la première occurrence pour éviter des doublons
+      }
+    }
   }
 }
 

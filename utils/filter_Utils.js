@@ -31,6 +31,9 @@ export const selectOptions = (
     console.warn("⚠️ Catégorie inconnue :", category);
     return;
   }
+  console.log("Voici selectedIngredients Validé", selectedIngredients);
+  console.log("Voici selectedAppliances Validé", selectedAppliances);
+  console.log("Voici selectedUstensils Validé", selectedUstensils);
 };
 
 export const UnselectOptions = (

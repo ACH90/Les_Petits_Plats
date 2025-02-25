@@ -102,7 +102,11 @@ const displayOptions = (optionsContainer, options, category) => {
       displayOptions(ingredientOptionsContainer, ingredients, "ingredients");
       displayOptions(applianceOptionsContainer, appliances, "appliances");
       displayOptions(ustensilOptionsContainer, ustensils, "ustensils");
-      removeOptionFromDropdown(optionToTag, category);
+      removeOptionFromDropdown(
+        selectedIngredients,
+        selectedAppliances,
+        selectedUstensils
+      );
       renderRecipesByMap(filteredRecipes, mainSearchValue);
     }
   });
