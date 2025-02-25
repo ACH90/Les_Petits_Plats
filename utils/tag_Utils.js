@@ -102,7 +102,6 @@ function removeMultipleOptions(dropdownContainer, selectedItems) {
   for (const item of selectedItems) {
     for (let i = 0; i < options.length; i++) {
       if (options[i].textContent.trim() === item.trim()) {
-        console.log("Suppression de :", options[i]); // Vérifier quel élément est supprimé
         dropdownContainer.removeChild(options[i]);
         break; // Supprime uniquement la première occurrence pour éviter des doublons
       }

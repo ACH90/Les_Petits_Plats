@@ -31,9 +31,6 @@ export const selectOptions = (
     console.warn("⚠️ Catégorie inconnue :", category);
     return;
   }
-  console.log("Voici selectedIngredients Validé", selectedIngredients);
-  console.log("Voici selectedAppliances Validé", selectedAppliances);
-  console.log("Voici selectedUstensils Validé", selectedUstensils);
 };
 
 export const UnselectOptions = (
@@ -47,8 +44,6 @@ export const UnselectOptions = (
     console.error("❌ Erreur : category est undefined !");
     return;
   }
-
-  //   console.log("✔️ Catégorie :", category);
 
   let selectedArray;
   if (category === "ingredients") {
