@@ -8,19 +8,27 @@ Le projet est développé en JavaScript vanilla, HTML, CSS et utilise Bootstrap 
 
 ## Fonctionnalités
 🔍 __Recherche de recettes__ : Effectuez une recherche par nom de recette, description ou ingrédients grâce à la barre de recherche.  
+
 📝 __Filtrage des recettes__ : Affinez votre recherche en sélectionnant des ingrédients, appareils et ustensiles via des menus déroulants.  
+
 🏷️ __Gestion des tags__ : Ajoutez et supprimez des tags pour affiner le filtrage des recettes de manière dynamique.  
-📱 __Design responsive__ : Conçu avec Bootstrap pour une utilisation optimisée sur mobile.  
+
+📱 __Design responsive__ : Conçu avec Bootstrap pour une utilisation optimisée sur mobile. 
+
 ⚡ __Affichage dynamique des recettes__ : Les recettes sont affichées en fonction des recherches et filtres appliqués par l'utilisateur.
 
 
 
 ## Technologies utilisées
-✅ __HTML5__ : Structure de la page web.
-✅ __CSS3__ : Styles personnalisés et utilisation de Bootstrap pour le design responsive.
-✅ __JavaScript (ES6 Modules)__ : Gestion des logiques de recherche, filtrage et affichage dynamique des recettes.
-✅ __Bootstrap 5.3__ : Composants et mise en page responsive.
-✅ __Google Fonts__ : Utilisation de polices personnalisées.
+✅ __HTML5__ : Structure de la page web.  
+
+✅ __CSS3__ : Styles personnalisés et utilisation de Bootstrap pour le design responsive.  
+
+✅ __JavaScript (ES6 Modules)__ : Gestion des logiques de recherche, filtrage et affichage dynamique des recettes.  
+
+✅ __Bootstrap 5.3__ : Composants et mise en page responsive.  
+
+✅ __Google Fonts__ : Utilisation de polices personnalisées.  
 
 
 
