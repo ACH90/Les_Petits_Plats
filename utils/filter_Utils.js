@@ -69,12 +69,13 @@ const getOptionValues = (recipes, key) => {
 
   recipes.forEach((recipe) => {
     if (Array.isArray(recipe[key])) {
-      // Cas où c'est un tableau (ex: ingredients, ustensils)
+      // Vérif si c'est un tableau (ex: ingredients, ustensils)
+      //If else sous forme d'operation ternaire
       recipe[key].forEach((item) => {
         valuesSet.add(
-          typeof item === "object"
+          typeof item === "object" //Si item est un objet on recupère item.ingredient
             ? item.ingredient.toLowerCase()
-            : item.toLowerCase()
+            : item.toLowerCase() //Sinon on recupère item et on le met directement en lowercase
         );
       });
     } else if (typeof recipe[key] === "string") {

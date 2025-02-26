@@ -168,9 +168,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   mainClearButton.addEventListener("click", () => {
-    handleClear(mainSearchInput); // Efface l'input visuellement
+    handleClear(mainSearchInput, mainSearchValue); // Efface l'input visuellement
     mainQuerryValue = ""; // Réinitialise la variable manuellement
-
+    mainSearchValue = "";
+    filteredRecipes = filterRecipes(
+      recipes,
+      mainSearchValue,
+      selectedIngredients,
+      selectedAppliances,
+      selectedUstensils
+    );
     // Masquer le bouton "X" après l'effacement
     showXButton(mainClearButton, mainQuerryValue);
 
