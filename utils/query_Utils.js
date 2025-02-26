@@ -24,9 +24,8 @@ export const showXButton = (ClearButton, inputValue, searchGlass) => {
   }
 };
 
-export const handleClear = (inputElement, inputValue) => {
+export const handleClear = (inputElement) => {
   if (inputElement instanceof HTMLInputElement) {
     inputElement.value = "";
-    inputValue = "";
   }
 };
